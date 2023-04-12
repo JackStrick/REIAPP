@@ -11,6 +11,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const name = req.body.name.trim()
     const email = req.body.email.trim()
     const password = req.body.password.trim()
+    
 
     if(!name || !email || !password) {
         throw new Error('Please add all fields')
@@ -95,12 +96,8 @@ const logout = asyncHandler(async (req, res) => {
 // @access Private
 const getUser = asyncHandler(async (req, res) => {
     //if (req.session.user){
-        const {_id, name, email } = await User.findById(req.session.user.id)
-        res.status(200).json({ 
-            id: _id,
-            name,
-            email,
-        })
+        //const {_id, name, email } = await User.findById(req.session.user.id)
+        res.status(200).json(req.user)
     /*} 
     else {
         res.status(401)

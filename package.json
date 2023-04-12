@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix client"
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Jack Strickland",
   "license": "MIT",
@@ -22,6 +23,7 @@
     "mongoose": "^7.0.1"
   },
   "devDependencies": {
+    "concurrently": "^8.0.1",
     "nodemon": "^2.0.21"
   }
 }
