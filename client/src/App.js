@@ -1,22 +1,50 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { useMemo } from "react";
+import { themeSettings } from "./theme";
+import {BrowserRouter, BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './components/Header';
+import Header from "./components/Header";
+import Layout from "./scenes/Layout";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Leadfind from "./pages/Leadfind";
+import Dealme from "./pages/Dealme";
+import Properties from "./pages/Properties";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
+
 
 function App() {
+  const mode = useSelector((state) => state.mode.mode);
+  const {user} = useSelector((state) => state.auth);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     <>
     <Router>
       <div className='container'>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-        </Routes>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            { !user  && <Header /> }
+            
+            <Routes>
+                <Route element={ user && <Layout />}>
+                  <Route path='/' element={<Dashboard />} />
+                  <Route path='/leadfind' element={<Leadfind />} />
+                  <Route path='/dealme' element={<Dealme />} />
+                  <Route path='/properties' element={<Properties />} />
+                  <Route path='/profile' element={<Profile />} />
+                  <Route path='/messages' element={<Dashboard />} />
+                  <Route path='/settings' element={<Settings />} />
+                </Route>
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+            </Routes>
+          </ThemeProvider>
       </div>
     </Router>
     <ToastContainer />

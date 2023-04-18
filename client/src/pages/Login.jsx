@@ -58,14 +58,14 @@ function Login() {
 
     return (
         <>
-            <section className='heading'>
+            <section className='heading-auth'>
                 <h1>
                     <FaSignInAlt /> Login
                 </h1>
                 <p>Please login</p>
             </section>
 
-            <section className='form'>
+            <section className='form user-auth'>
                 <form onSubmit={onSubmit}>
                     <div className="form-group">
                         <input

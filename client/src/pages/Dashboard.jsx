@@ -12,6 +12,8 @@ function Dashboard() {
       navigate('/login')
     }
   }, [user, navigate])
+
+
   return (
     <div>Dashboard</div>
   )

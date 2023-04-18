@@ -1,0 +1,73 @@
+/*
+
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    z-index: 1000;
+    background-color: #f0f0f0;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.collapsed {
+    transform: translateX(-190px);
+  }
+  
+  .sidebar-toggle {
+    margin-top: 10px;
+    border: none;
+  }
+  .sidebar-toggle:hover{
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  a:hover {
+    color: #555;
+  }
+
+  svg {
+    height: 1.5em;
+    width: 1.5em;
+    margin-right: 10px;
+  }
+  
+  /* Only show icons when sidebar is collapsed */
+
+
+  /*
+  .sidebar.collapsed ul li a span {
+    display: none;
+  }
+  
+  .sidebar.collapsed ul li a svg {
+    margin-left: 200px;
+    
+  }
+  
+.sidebar.collapsed .sidebar-toggle {
+    margin-left:200px;
+}*/

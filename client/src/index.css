@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+/*@import url('./design/Sidebar.css');*/
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+
 
 * {
   margin: 0;
@@ -9,6 +13,12 @@
 body {
   font-family: 'Poppins', sans-serif;
   height: 100vh;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 a {
@@ -35,7 +45,15 @@ h3 {
   margin-bottom: 10px;
 }
 
-.container {
+.header {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.heading-auth {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
@@ -75,15 +93,59 @@ h3 {
   margin-right: 5px;
 }
 
-.heading {
+.heading-auth {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 50px;
   padding: 0 20px;
 }
 
-.heading p {
+.heading-auth p {
   color: #828282;
+}
+
+.app {
+  display: flex;
+  position: relative;
+}
+
+.MuiListItemIcon-root {
+  align-items: center;
+  margin: .5rem .2rem .5rem .2rem;
+  padding-left: .5rem;
+}
+
+.MuiListItemIcon-root svg {
+  height: 1.5rem;
+  width: 1.5rem;
+  
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*  Track */
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on Hover */
+::-webkit-scrollbar-track:hover {
+  background: #555;
+}
+.header ul {
+  margin-right: 10px;
+}
+
+.logo {
+  margin-left: 10px;
 }
 
 .goals {
@@ -108,9 +170,10 @@ h3 {
   background: none;
 }
 
-.form,
+.form.user-auth,
 .content {
-  width: 70%;
+  width: 30%;
+  min-width: 200px;
   margin: 0 auto;
 }
 

@@ -67,14 +67,14 @@ function Register() {
   
     return (
         <>
-        <section className='heading'>
+        <section className='heading-auth'>
             <h1>
                 <FaUser /> Register
             </h1>
             <p>Please create an account</p>
         </section>
 
-        <section className='form'>
+        <section className='form user-auth'>
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <input
