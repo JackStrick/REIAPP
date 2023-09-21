@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner'
 import { FaSignInAlt } from 'react-icons/fa'
 
 function Login() {
+
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -21,6 +22,12 @@ function Login() {
     (
         (state) => state.auth
     )
+
+    useEffect(() => {
+        if(user){
+          navigate('/')
+        }
+      }, [user, navigate])
 
     useEffect(() => {
         if(isError){

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import PropertyTable from '../components/PropertyTable';
 
 function Leadfind() {
 
@@ -14,7 +15,15 @@ function Leadfind() {
 
     
     return (
-        <div>Leadfind</div>
+        <div>
+          <h1>Leadfind</h1>
+
+          
+          <PropertyTable />
+
+
+
+        </div>
     )
 }
 

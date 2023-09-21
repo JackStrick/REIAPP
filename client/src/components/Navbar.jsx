@@ -76,7 +76,6 @@ const Navbar = ({
                         sx={{
                             display: "flex",
                             justifyContent: "space-between",
-                            alignItems: "center",
                             textTransform: "none",
                             gap: "1rem",
                         }}

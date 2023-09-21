@@ -94,8 +94,8 @@ const Sidebar = ({
           >
         <Box width="100%">
                     <Box m={isSidebarOpen ? "1.5rem 2rem 2rem 3rem" : "1rem 1rem 1rem 1rem"}>
-                      <FlexBetween color={theme.palette.secondary.main}>
-                        <Box display="flex" alignItems="center" gap="0.5rem"
+                      <FlexBetween color={theme.palette.secondary.main} alignItems="center">
+                        <Box display="flex" gap="0.5rem"
                           sx={{
                               "&:hover": {
                                 cursor: "pointer"
@@ -160,6 +160,8 @@ const Sidebar = ({
                                             active === lcText 
                                                 ? theme.palette.primary[600] 
                                                 : theme.palette.secondary[100],
+                                        marginLeft: isSidebarOpen ? "2rem" : "1rem",
+                                        alignItems: isSidebarOpen ? 'center' : '',
                                     }}
                                     >
                                         <ListItemIcon
@@ -171,8 +173,7 @@ const Sidebar = ({
 
 
                                             }} 
-                                            marginLeft={isSidebarOpen ? "2rem" : "1rem"}
-                                            alignItems={isSidebarOpen ? '': 'center'}
+                                            
                                             
                                             
                                         >
