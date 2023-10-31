@@ -25,8 +25,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Create a catch-all route to serve the React app's HTML file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/public/build', 'index.html'));
-});
+    res.sendFile(path.join(__dirname, 'client/public/index.html'));
+  });  
 
 // Error handler after all routes to ensure its applied globally
 app.use(errorHandler)
