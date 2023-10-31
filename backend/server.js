@@ -21,11 +21,11 @@ app.use('/api/users', require('./routes/userRoutes'))
 app.use("/api/property", require('./routes/propertyRoutes'))
 
 // Serve static assets from the 'client/build' directory
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Create a catch-all route to serve the React app's HTML file
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/public/index.html'));
+    res.sendFile(path.join(__dirname, '../client/public/index.html'));
   });  
 
 // Error handler after all routes to ensure its applied globally
