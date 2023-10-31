@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { fetchProperties } from "../features/api/dbSlice";
+import LinearProgress from '@mui/material/LinearProgress';
 
 function Layout() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -18,19 +19,27 @@ function Layout() {
         if (user) {
             //console.log("Dispatching fetchProperties");
             dispatch(fetchProperties());
+            
         }
     }, [dispatch, user]);
 
     // Check if propertiesData is loading
     if (user && propertiesData.isLoading) {
         // Render loading state or loading indicator
-        return <div>Loading...</div>;
+        return (
+            <Box sx={{ width: '100%' }}>
+                <LinearProgress />
+            </Box>
+        );
     }
 
     // Check if propertiesData is empty
     if (user && propertiesData.length === 0) {
-        // Render a message for no properties available
-        return <div>No properties available.</div>;
+        return (
+            <Box sx={{ width: '100%' }}>
+                <LinearProgress />
+            </Box>
+        );
     }
 
     // Render your component content here when data is available
