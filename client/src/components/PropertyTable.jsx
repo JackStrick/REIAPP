@@ -9,9 +9,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PropertyPopup from './PropertyPopup'; // Import the PropertyPopup component
 
 
-function PropertyTable() {
+function PropertyTable({properties}) {
     // Assuming you have access to property data in your Redux state
-    const properties = useSelector((state) => state.db.properties);
+    //const properties = useSelector((state) => state.db.properties);
 
     const [selectedProperty, setSelectedProperty] = useState(null);
     //const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -70,7 +70,7 @@ function PropertyTable() {
                 </Table>
             </TableContainer>
             {selectedProperty && (
-                <PropertyPopup open={true} onClose={handleClosePopup} property={selectedProperty} />
+                <PropertyPopup open={true} onClose={() => setSelectedProperty(null)} property={selectedProperty} />
             )}
         </div>
     );

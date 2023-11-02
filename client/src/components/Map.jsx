@@ -1,65 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Map({ property }) {
-    const [coordinates, setCoordinates] = useState(null);
-    const [googleMapLoaded, setGoogleMapLoaded] = useState(false);
+  const [googleMapLoaded, setGoogleMapLoaded] = useState(false);
+  const [map, setMap] = useState(null);
+  const [marker, setMarker] = useState(null);
 
-    useEffect(() => {
-        const { PropertyAddress, City, State, ZipCode } = property;
-        const addressQuery = `${PropertyAddress}, ${City}, ${State} ${ZipCode}`;
-        console.log('Address Selected', addressQuery);
+  useEffect(() => {
+    if (!googleMapLoaded) {
+      // Check if the Google Maps API script is already loaded
+      if (!document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]')) {
+        const googleMapsScript = document.createElement('script');
+        googleMapsScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBzcNrbs4vcNpzcb8-dBYHpJBwtJL-LJ8o&libraries=places`;
+        googleMapsScript.async = true;
+        googleMapsScript.defer = true;
 
-        const geoRequest = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-            addressQuery
-        )}&key=AIzaSyBC0CFPjhnRovEXBqt42WuohVznI0-3okE`;
+        googleMapsScript.addEventListener('load', () => {
+          setGoogleMapLoaded(true);
+          initializeMap(); // Call initializeMap once the script is loaded
+        });
 
+        document.head.appendChild(googleMapsScript);
+      } else {
+        setGoogleMapLoaded(true);
+        initializeMap(); // Call initializeMap immediately if the script is already loaded
+      }
+    }
+  }, [googleMapLoaded]);
 
-        async function geocodeAddress() {
-            try {
-                const response = await fetch( geoRequest );
+  const initializeMap = () => {
+    if (window.google && window.google.maps) { // Ensure that the google maps API is available
+      const lat = parseFloat(property.Lat);
+      const lng = parseFloat(property.Lng);
 
-                if (!response.ok) {
-                throw new Error('Geocoding failed');
-                }
+      const mapInstance = new window.google.maps.Map(document.getElementById('map'), {
+        center: { lat, lng },
+        zoom: 19,
+        mapTypeId: 'hybrid', // Set the map type to satellite
+      });
 
-                const data = await response.json();
-                if (data.results && data.results.length > 0) {
-                const { lat, lng } = data.results[0].geometry.location;
-                setCoordinates({ lat, lng });
-                } else {
-                console.log('Invalid coordinates');
-                }
-            } 
-            catch (error) {
-                console.error(error);
-            }
-        }
+      const markerInstance = new window.google.maps.Marker({
+        position: { lat, lng },
+        map: mapInstance,
+        title: property.PropertyAddress,
+      });
 
-        geocodeAddress();
-    }, [property]);
+      setMap(mapInstance);
+      setMarker(markerInstance);
+    }
+  };
 
-    useEffect(() => {
-        if (coordinates) {
-            const map = new window.google.maps.Map(document.getElementById('map'), {
-                center: coordinates,
-                zoom: 15,
-            });
-
-            if (coordinates.lat && coordinates.lng) {
-                new window.google.maps.Marker({
-                    position: coordinates,
-                    map,
-                    title: property.PropertyAddress,
-                });
-            }
-        }
-    }, [coordinates, property]);
-
-    return (
-        <div id="map" style={{ width: '100%', height: '300px' }}>
-            {/* The map will be rendered here */}
-        </div>
-    );
+  return (
+    <div id="map" style={{ width: '100%', height: '300px' }}>
+      {/* The map will be rendered here */}
+    </div>
+  );
 }
 
 export default Map;

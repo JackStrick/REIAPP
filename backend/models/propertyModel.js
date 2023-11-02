@@ -26,6 +26,8 @@ const propertySchema = mongoose.Schema({
     LatestSalePrice: Number,
     LatestMortgageDate: String,
     LatestMortgageAmount: Number,
+    Lat: String,
+    Lng: String,
 },
 {
     timestamps: true

@@ -21,6 +21,20 @@ export const fetchProperties = createAsyncThunk('db/fetchProperties', async (_, 
   }
 });
 
+// Create an asynchronous thunk for fetching user properties
+export const fetchUserProperties = createAsyncThunk('db/fetchUserProperties', async (userId, thunkAPI) => {
+  try {
+    const response = await dbService.getUserProperties(userId);
+    console.log('dbSlice.js - Returning property data', response);
+    return response; // Assuming your service returns the data directly
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching user properties';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+
+
 export const dbSlice = createSlice({
   name: 'db',
   initialState,

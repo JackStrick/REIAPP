@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
+
 // Define your API endpoints
 const dbService = {
   // Register Property (Example)
@@ -52,6 +53,26 @@ const dbService = {
         throw error;
     }
   },
+
+  getUserProperties: async (userId) => {
+    try {
+      // Send a GET request to the user properties endpoint with the user ID
+      const response = await axiosInstance.get(`/user_properties/${userId}`);
+      if (response.status === 200) {
+        const userPropertiesData = response.data;
+
+        if (userPropertiesData) {
+          localStorage.setItem('user_properties', JSON.stringify(userPropertiesData));
+        }
+        return userPropertiesData;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error fetching user properties:', error);
+      throw error;
+    }
+  }
   
 
   // Add more methods for other API endpoints as needed

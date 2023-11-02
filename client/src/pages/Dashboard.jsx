@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+//import Map from './Map';
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -15,7 +16,12 @@ function Dashboard() {
 
 
   return (
-    <div>Dashboard</div>
+    <div>
+      <h1>Dashboard </h1>
+      
+    </div>
+
+    
   )
 }
 

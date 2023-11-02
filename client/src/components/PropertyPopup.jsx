@@ -23,14 +23,13 @@ function PropertyPopup({ open, onClose, property }) {
   return (
     <Dialog open={open} onClose={onClose} PaperProps={{
         style: {
-          width: '2000px', // Adjust the width as needed
+          width: '80%', // Adjust the width as needed was 2000px
           margin: '16px',    // Adjust the margin as needed
         },
       }}>
         <Map property={property} />
         <DialogTitle>Property Details</DialogTitle>
         <DialogContent>
-              {/* Render property details here */}
               <div>
                 <strong>Property Type:</strong> {property.PropertyType}
               </div>

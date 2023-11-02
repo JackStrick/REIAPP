@@ -19,6 +19,8 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/goals', require('./routes/goalRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use("/api/property", require('./routes/propertyRoutes'))
+app.use("/api/property/:userid", require('./routes/propertyRoutes'))
+
 
 // Serve static assets from the 'client/build' directory
 app.use(express.static(path.join(__dirname, '../client/build')));
