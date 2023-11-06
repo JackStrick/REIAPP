@@ -25,13 +25,9 @@ const getProperties = async (req, res) => {
 
 const getUserProperties = async (req, res) => {
     const userId = req.params.userId;
-    console.log("MADE IT HERE"); // Log a message indicating that the function has been reached
-    console.log("Received userId:", userId);
-
     try {
         // Retrieve property IDs associated with the user from the user_properties table
         const userPropertyIds = await UserProperties.find({ userId: userId }, 'propertyId');
-        console.log("userPropertyIds:", userPropertyIds);
 
         if (!userPropertyIds) {
             // Handle the case where no data was found
@@ -56,10 +52,11 @@ const getUserProperties = async (req, res) => {
 };
 
 const isUserProperty = async (req, res) => {
-    const { userId, propertyId } = req.body;
+    const { userId, propertyId } = req.params;
+  
     try {
         // Check if a user property record already exists for this user and property
-        const existingUserProperty = await UserProperty.findOne({ userId: userId, propertyId: propertyId });
+        const existingUserProperty = await UserProperties.findOne({ userId: userId, propertyId: propertyId });
     
         if (existingUserProperty) {
             //res.status(400).json({ message: 'User property record already exists' });
@@ -69,20 +66,23 @@ const isUserProperty = async (req, res) => {
             return false;
         }
     } catch (error) {
-        console.error('Error checkin user property:', error);
+        console.error('Error checking user property:', error);
         return res.status(500).json({ message: 'Error checking user property' });
       }
 };
 
 const addUserProperty = async (req, res) => {
-    const { userId, propertyId } = req.body;
+    const { userId, propertyId } = req.params;
+
     try {
-        if (isUserProperty) {
-          return res.status(400).json({ message: 'User property record already exists' });
+        // Check if a user property record already exists for this user and property
+        const exists = await isUserProperty(req, res);
+        if (exists) {
+          return res.status(303).json({ message: 'User property record already exists' });
         }
     
         // If no record exists, create a new user property record
-        const newUserProperty = new UserProperty({ userId, propertyId });
+        const newUserProperty = new UserProperties({ userId, propertyId });
     
         await newUserProperty.save();
     
@@ -94,11 +94,11 @@ const addUserProperty = async (req, res) => {
 };
 
 const removeUserProperty = async (req, res) => {
-    const { userId, propertyId } = req.body; // Assuming you send the user ID and property ID in the request body
+    const { userId, propertyId } = req.params; // Assuming you send the user ID and property ID in the request body
   
     try {
       // Find and delete the user property record that matches the provided user and property IDs
-      const deletedUserProperty = await UserProperty.deleteOne({ userId, propertyId });
+      const deletedUserProperty = await UserProperties.deleteOne({ userId, propertyId });
   
       if (deletedUserProperty.deletedCount === 0) {
         return res.status(404).json({ message: 'User property record not found' });

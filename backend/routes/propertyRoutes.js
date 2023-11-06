@@ -7,10 +7,11 @@ const { getUserProperties, getProperties, isUserProperty, addUserProperty, remov
 
 
 router.get('/', getProperties)
-router.get('/:userId', getUserProperties)
-router.get('/check', isUserProperty)
-router.post('/:userId', addUserProperty)
-router.delete('/:userId', removeUserProperty)
+router.get('/user_properties/:userId', getUserProperties)
+router.get('/user_properties/:userId/:propertyId', isUserProperty)
+router.post('/user_properties/:userId/:propertyId', addUserProperty)
+router.delete('/user_properties/:userId/:propertyId', removeUserProperty)
+
 //router.get('/logout', logout)
 
 module.exports = router

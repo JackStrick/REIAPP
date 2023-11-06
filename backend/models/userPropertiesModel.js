@@ -1,10 +1,19 @@
 const mongoose = require('mongoose')
 
 const userPropertySchema = mongoose.Schema({
-    id: mongoose.Schema.Types.ObjectId,
-    userId: mongoose.Schema.Types.ObjectId,
-    propertyId: mongoose.Schema.Types.ObjectId,
     
+    
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    
+    propertyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    
+    }
+        
 },
 {
     timestamps: true

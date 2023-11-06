@@ -25,12 +25,43 @@ export const fetchProperties = createAsyncThunk('db/fetchProperties', async (_, 
 export const fetchUserProperties = createAsyncThunk('db/fetchUserProperties', async (userId, thunkAPI) => {
   try {
     const response = await dbService.getUserProperties(userId);
-    console.log('dbSlice.js - Returning property data', response);
     return response; // Assuming your service returns the data directly
   } catch (error) {
     const message = error.response?.data?.message || error.message || 'Error fetching user properties';
     return thunkAPI.rejectWithValue(message);
   }
+});
+
+export const isUserProperty = createAsyncThunk('db/isUserProperty', async ({ userId, propertyId }, thunkAPI) => {
+
+  try {
+    const response = await dbService.isUserProperty(userId, propertyId);
+    return response; // Assuming your service returns the data directly
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching user properties';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const deleteUserProperty = createAsyncThunk('db/deletedUserProperty', async ({ userId, propertyId }, thunkAPI) => {
+  try {
+    const response = await dbService.deleteUserProperty(userId, propertyId);
+    return response; 
+  } catch(error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching user properties';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const createUserProperty = createAsyncThunk('db/addUserProperty', async ({ userId, propertyId }, thunkAPI) => {
+  try {
+    const response = await dbService.createUserProperty(userId, propertyId);
+    return response; 
+  } catch(error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching user properties';
+    return thunkAPI.rejectWithValue(message);
+  }
+
 });
 
 

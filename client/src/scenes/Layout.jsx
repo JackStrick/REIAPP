@@ -45,7 +45,7 @@ function Layout() {
     // Render your component content here when data is available
     // You can map over propertiesData and display them as needed
 
-    console.log('Prop Data', propertiesData);
+    //console.log('Prop Data', propertiesData);
 
     return (
         <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">

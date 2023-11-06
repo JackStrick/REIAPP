@@ -30,8 +30,7 @@ const dbService = {
   getProperties: async () => {
     try {
         const response = await axiosInstance.get();
-        console.log(response.status);
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
             //console.log('Fetched properties:', response.data);
             // Assuming the data is returned as an array, you can store it directly
             const propertyData = response.data;
@@ -58,9 +57,8 @@ const dbService = {
     try {
       // Send a GET request to the user properties endpoint with the user ID
       const response = await axiosInstance.get(`/user_properties/${userId}`);
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         const userPropertiesData = response.data;
-
         if (userPropertiesData) {
           localStorage.setItem('user_properties', JSON.stringify(userPropertiesData));
         }
@@ -72,10 +70,65 @@ const dbService = {
       console.error('Error fetching user properties:', error);
       throw error;
     }
-  }
-  
+  },
 
-  // Add more methods for other API endpoints as needed
+  isUserProperty: async (userId, propertyId) => {
+    try {
+      // Send a GET request to the user properties endpoint with the user ID and property ID
+      const response = await axiosInstance.get(`/user_properties/${userId}/${propertyId}`);
+      if (response.status === 200) {
+        const dbResponse = response.data;
+        return dbResponse;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error fetching user properties:', error);
+      throw error;
+    }
+  },
+
+
+  createUserProperty: async (userId, propertyId) => {
+    try {
+      // Send a GET request to the user properties endpoint with the user ID and property ID
+      const response = await axiosInstance.post(`/user_properties/${userId}/${propertyId}`);
+      if (response.status === 200 || response.status === 201) {
+        const dbResponse = response.data;
+        return dbResponse;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error creating user properties:', error);
+      throw error;
+    }
+  },
+
+  deleteUserProperty: async (userId, propertyId) => {
+    try {
+
+      const response = await axiosInstance.delete(`/user_properties/${userId}/${propertyId}`);
+      if ( response.status === 200 || response.status === 201) 
+      {
+        const dbResponse = response.data;
+        return dbResponse;
+      }
+      else if (response.status === 303) 
+      {
+        console.log("User property record already exists")
+      } 
+      else 
+      {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } 
+    catch (error) {
+      console.error('Error deleting user properties:', error);
+      throw error;
+    }
+  }
+
 };
 
 export default dbService
