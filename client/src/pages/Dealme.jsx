@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Box from '@mui/material/Box';
+import PageHeader from '../components/General/PageHeader';
 
 function Dealme() {
   const navigate = useNavigate()
@@ -14,7 +16,10 @@ function Dealme() {
   }, [user, navigate])
   
   return (
-    <div>Dealme</div>
+    <Box m="1.5rem 2.5rem">
+      <PageHeader title="DealMe" subtitle="Is your lead a good deal?" />
+
+    </Box>
   )
 }
 

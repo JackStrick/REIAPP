@@ -4,7 +4,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
-import Map from './Map';
+import Map from '../General/Map';
 
 import { useEffect, useState } from 'react';
 
@@ -18,7 +18,12 @@ function PropertyPopup({ open, onClose, property }) {
         currency: 'USD',
         });
     };
+  
 
+  // Function to navigate to the property page
+  const toProperty = () => {
+    window.location.href = `/properties/${property._id}`;
+  };
   // You can customize the dialog content and layout here based on the property data.
   return (
     <Dialog open={open} onClose={onClose} PaperProps={{
@@ -27,7 +32,7 @@ function PropertyPopup({ open, onClose, property }) {
           margin: '16px',    // Adjust the margin as needed
         },
       }}>
-        <Map property={property} />
+        <Map properties={[property]} />
         <DialogTitle>Property Details</DialogTitle>
         <DialogContent>
               <div>
@@ -52,6 +57,9 @@ function PropertyPopup({ open, onClose, property }) {
               </div>
             </DialogContent>
       <DialogActions>
+      <Button onClick={toProperty} >
+          More
+        </Button>
         <Button onClick={onClose} color="primary">
           Close
         </Button>

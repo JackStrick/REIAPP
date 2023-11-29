@@ -1,14 +1,15 @@
 // PropertyTable.js
 import React, { useState, useEffect } from 'react';
-import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button, useTheme } from '@mui/material';
+import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button, useTheme, Typography, TableFooter, TablePagination } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUserProperties, deleteUserProperty, createUserProperty } from '../features/api/dbSlice';
+import { fetchUserProperties, deleteUserProperty, createUserProperty } from '../../features/api/dbSlice';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PropertyPopup from './PropertyPopup'; // Import the PropertyPopup component
-import FavoriteButton from './FavoriteButton';
+import PropertyPopup from '../SingleProperty/PropertyPopup'; // Import the PropertyPopup component
+import FavoriteButton from '../Misc/FavoriteButton';
 
-function PropertyTable({ properties }) {
+
+function PropertyTable({ properties, name }) {
     const theme = useTheme();
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -17,9 +18,9 @@ function PropertyTable({ properties }) {
 
     useEffect(() => {
         const getUserProperties = async () => {
-        const response = await dispatch(fetchUserProperties(user._id));
-        const updatedUserProperties = response.payload || [];
-        setUserProperties(updatedUserProperties);
+            const response = await dispatch(fetchUserProperties(user._id));
+            const updatedUserProperties = response.payload || [];
+            setUserProperties(updatedUserProperties);
         };
 
         if (user) {
@@ -29,6 +30,10 @@ function PropertyTable({ properties }) {
 
     const handleViewClick = (property) => {
         setSelectedProperty(property);
+    };
+
+    const handleRowClick = (property) => {
+        window.location.href = `/properties/${property._id}`;
     };
 
     const formatDollarValue = (value) => {
@@ -57,30 +62,39 @@ function PropertyTable({ properties }) {
 
     return (
         <div>
+        <Typography variant="h3" fontWeight="bold" sx={{ mb: "5px" }} gutterBottom >{name}</Typography>
         <TableContainer component={Paper}>
             <Table color='inherit'>
             <TableHead>
                 <TableRow>
-                <TableCell>Property Type</TableCell>
                 <TableCell>Address</TableCell>
+                <TableCell>City</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>Zip</TableCell>
+                <TableCell>Property Type</TableCell>
                 <TableCell>Bedrooms</TableCell>
                 <TableCell>Bathrooms</TableCell>
                 <TableCell>Latest Sale Price</TableCell>
                 <TableCell>Latest Sale Date</TableCell>
+                <TableCell>Lead Type</TableCell>
                 <TableCell>Actions</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {properties.map((property) => (
-                <TableRow key={property._id}>
-                    <TableCell>{property.PropertyType}</TableCell>
-                    <TableCell>{property.PropertyAddress + ', ' + property.City + ', ' + property.State + ' ' + property.ZipCode}</TableCell>
+                <TableRow key={property._id} >
+                    <TableCell onClick={() => handleRowClick(property)} sx={{ ':hover': {cursor:'pointer', textDecoration: 'underline' }}}>{property.PropertyAddress}</TableCell>
+                    <TableCell>{property.City}</TableCell>
+                    <TableCell>{property.State}</TableCell>
+                    <TableCell>{property.ZipCode}</TableCell>
+                    <TableCell>{property.PropUsage}</TableCell>
                     <TableCell>{property.Bedroom}</TableCell>
                     <TableCell>{property.Bathroom}</TableCell>
                     <TableCell>{formatDollarValue(property.LatestSalePrice)}</TableCell>
                     <TableCell>{property.LatestSaleDate}</TableCell>
+                    <TableCell>{property.PropertyType}</TableCell>
                     <TableCell>
-                    <Button onClick={() => handleViewClick(property)}>View</Button>
+                    <Button sx={{color: theme.palette.grey.dark}} onClick={() => handleViewClick(property)}>Quick View</Button>
                     <FavoriteButton
                         property={property}
                         isFavorite={isPropertyInUserProperties(property)}

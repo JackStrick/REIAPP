@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
+import Navbar from '../components/General/Navbar';
+import Sidebar from '../components/General/Sidebar';
 import { fetchProperties } from "../features/api/dbSlice";
 import LinearProgress from '@mui/material/LinearProgress';
 

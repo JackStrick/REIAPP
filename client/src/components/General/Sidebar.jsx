@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import FlexBetween from './FlexBetween';
-import Dashboard from '../pages/Dashboard';
+import FlexBetween from '../Misc/FlexBetween';
+import Dashboard from '../../pages/Dashboard';
 import { FaDollarSign, FaHome, FaUser, FaEnvelope, FaCog, FaBars, FaTimes } from 'react-icons/fa'
 import { TbTargetArrow } from "react-icons/tb";
 import { RiDashboardFill } from "react-icons/ri";
-import { logout, reset } from '../features/auth/authSlice'
+import { logout, reset } from '../../features/auth/authSlice'
 import { Box, Drawer, Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, useTheme, } from '@mui/material';
 import { ChevronLeft, ChevronRightOutlined } from '@mui/icons-material';
-import logoA from "../assets/Core_logo.png"
-import logoB from "../assets/CoreIconHeaderLogoTransparent.png"
+import logoA from "../../assets/Core_logo.png"
+import logoB from "../../assets/CoreIconHeaderLogoTransparent.png"
 
 const navItems = [
   {

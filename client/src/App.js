@@ -6,7 +6,7 @@ import {BrowserRouter, BrowserRouter as Router, Routes, Route} from 'react-route
 import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from "./components/Header";
+import Header from "./components/General/Header";
 import Layout from "./scenes/Layout";
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -16,6 +16,7 @@ import Dealme from "./pages/Dealme";
 import Properties from "./pages/Properties";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import SingleProperty from "./pages/SingleProperty";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                   <Route path='/leadfind' element={<Leadfind />} />
                   <Route path='/dealme' element={<Dealme />} />
                   <Route path='/properties' element={<Properties />} />
+                  <Route path='/properties/:propertyId' element={<SingleProperty />} />
                   <Route path='/profile' element={<Profile />} />
                   <Route path='/messages' element={<Dashboard />} />
                   <Route path='/settings' element={<Settings />} />

@@ -80,6 +80,9 @@ export const themeSettings = (mode) => {
                     secondary: {
                         main: tokensDark.secondary[500],
                     },
+                    grey: {
+                        main: tokensLight.grey[500],
+                    },
                     neutral: {
                         dark: tokensDark.grey[700],
                         main: tokensDark.grey[500],
@@ -91,15 +94,18 @@ export const themeSettings = (mode) => {
                 } : { 
                     //LIGHT MODE
                     primary: {
-                        main: tokensDark.primary[500],
+                        main: tokensLight.primary[500],
                     },
                     secondary: {
-                        main: tokensDark.secondary[500],
+                        main: tokensLight.secondary[500],
+                    },
+                    grey: {
+                        main: tokensLight.grey[500],
                     },
                     neutral: {
-                        dark: tokensDark.grey[700],
-                        main: tokensDark.grey[500],
-                        light: tokensDark.grey[100]
+                        dark: tokensLight.grey[700],
+                        main: tokensLight.grey[500],
+                        light: tokensLight.grey[100]
                     },
                     background: {
                         default: "#fcfcfc",

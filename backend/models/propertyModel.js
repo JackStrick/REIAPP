@@ -28,6 +28,7 @@ const propertySchema = mongoose.Schema({
     LatestMortgageAmount: Number,
     Lat: String,
     Lng: String,
+    zpid: String,
 },
 {
     timestamps: true

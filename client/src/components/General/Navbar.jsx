@@ -1,12 +1,12 @@
 import {useState} from 'react'
 import { LightModeOutlined, DarkModeOutlined, Menu as MenuIcon, Search, SettingsOutlined, ArrowDropDownOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import FlexBetween from './FlexBetween';
+import FlexBetween from '../Misc/FlexBetween';
 import { AppBar, Button, Box, Typography, IconButton, InputBase, Toolbar, Menu, MenuItem, useTheme, Icon } from "@mui/material";
-import { logout, reset } from '../features/auth/authSlice'
+import { logout, reset } from '../../features/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
-import profileImage from '../assets/ProfileImage.jpeg';
-import { setMode } from "../features/mode/modeSlice";
+import profileImage from '../../assets/ProfileImage.jpeg';
+import { setMode } from "../../features/mode/modeSlice";
 
 
 const Navbar = ({

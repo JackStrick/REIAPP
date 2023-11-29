@@ -21,6 +21,16 @@ export const fetchProperties = createAsyncThunk('db/fetchProperties', async (_, 
   }
 });
 
+export const fetchPropertyById = createAsyncThunk('db/fetchPropertyById', async (propertyId, thunkAPI) => {
+  try {
+    const response = await dbService.getPropertyById(propertyId);
+    return response; // Assuming service returns the data directly
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching property';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 // Create an asynchronous thunk for fetching user properties
 export const fetchUserProperties = createAsyncThunk('db/fetchUserProperties', async (userId, thunkAPI) => {
   try {

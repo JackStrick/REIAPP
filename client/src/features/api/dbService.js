@@ -31,14 +31,13 @@ const dbService = {
     try {
         const response = await axiosInstance.get();
         if (response.status === 200 || response.status === 201) {
-            //console.log('Fetched properties:', response.data);
             // Assuming the data is returned as an array, you can store it directly
             const propertyData = response.data;
 
             // Store data in local storage (example)
             if (propertyData) {
             // Customize the local storage data storage as needed
-            localStorage.setItem('properties', JSON.stringify(propertyData));
+              localStorage.setItem('properties', JSON.stringify(propertyData));
             }
             //console.log('dbService Returning property data', propertyData)
             return propertyData;
@@ -50,6 +49,24 @@ const dbService = {
         // Handle and log errors
         console.error('Error fetching properties:', error);
         throw error;
+    }
+  },
+
+  getPropertyById: async (propertyId) => {
+    try {
+      const response = await axiosInstance.get(`/${propertyId}`);
+      if (response.status === 200 || response.status === 201) {
+        const propertyData = response.data;
+        if (propertyData) {
+          localStorage.setItem('property', JSON.stringify(propertyData));
+        }
+        return propertyData;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error fetching property:', error);
+      throw error;
     }
   },
 

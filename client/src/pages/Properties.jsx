@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import PropertyTable from '../components/PropertyTable';
+import PropertyTable from '../components/MultiProperty/PropertyTable';
 import { fetchUserProperties } from '../features/api/dbSlice';
-import { Dialog } from '@mui/material';
+import { Dialog, Box, Typography, Stack } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import PageHeader from '../components/General/PageHeader';
 
 
 function Properties() {
@@ -26,7 +27,6 @@ function Properties() {
   useEffect(() => {
     if (user) {
       // Fetch user properties using the user's ID
-      console.log("THE USER: ", user._id)
       dispatch(fetchUserProperties(user._id))
         .unwrap()
         .then((response) => {
@@ -68,13 +68,23 @@ function Properties() {
   }*/}
 
   return (
-    <div>
-      <h1>Properties</h1>
-      
-        {properties && <PropertyTable properties={properties}/>}
-        
 
-    </div>
+    <Box m="1.5rem 2.5rem">
+
+      <PageHeader title="Saved Leads" subtitle="" />
+
+      <Stack spacing={2}>
+        {properties.filter(property => property.PropertyType === 'Absentee Owner') && <PropertyTable properties={properties.filter(property => property.PropertyType === 'Absentee Owner')} name="Absentee Owner"/>}
+
+        {properties.filter(property => property.PropertyType === 'Foreclosure') && <PropertyTable properties={properties.filter(property => property.PropertyType === 'Foreclosure')} name="Foreclosure" />}
+       
+        {properties && <PropertyTable properties={properties.filter(property => property.PropertyType === 'Probate')} name={"Probate"} />}
+      </Stack>
+      
+
+
+    </Box>
+   
   );
 }
 

@@ -14,7 +14,7 @@ function FavoriteButton({ isFavorite, onToggle, property  }) {
 
     return (
         <Button onClick={handleToggle}>
-        {isFavorite ? <FavoriteIcon sx={{color: theme.palette.secondary[500]}} /> : <FavoriteBorderIcon />}
+        {isFavorite ? <FavoriteIcon sx={{color: theme.palette.secondary[100]}} /> : <FavoriteBorderIcon sx={{color: theme.palette.secondary[100]}} />}
         </Button>
     );
 }
