@@ -20,9 +20,9 @@ function SingleProperty() {
             const property = propData.payload || [];
             setProperty(property);
     
-            //const propAnalytics = await dispatch(fetchPropertyAnalytics(property.zpid));
-            //const analytics = propAnalytics.payload || [];
-            //setAnalytics(analytics);
+            const propAnalytics = await dispatch(fetchPropertyAnalytics(property.zpid));
+            const analytics = propAnalytics.payload || [];
+            setAnalytics(analytics[0]);
         }
 
         if (user) {
@@ -31,7 +31,7 @@ function SingleProperty() {
 
     }, [user, propertyId, dispatch])
 
-    if (!property) {
+    if (!property || !analytics) {
         return (
             <Spinner />
         );
@@ -43,7 +43,7 @@ function SingleProperty() {
                 <BasicInfo property={property} />
             </Card>
             <Card sx={{marginTop: 3}} variant='outlined'>
-                <PropertyAnalytics property={analytics} />
+                <PropertyAnalytics analytics={analytics} />
             </Card>
 
            

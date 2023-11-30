@@ -4,8 +4,41 @@ import StatBox from '../Misc/StatBox'
 import { useTheme } from '@emotion/react'
 import PropAnalyticsBox from '../Misc/PropAnalyticsBox'
 
-function PropertyAnalytics({property}) {
+
+
+
+
+function PropertyAnalytics({analytics}) {
     const theme = useTheme();
+
+    const formatDollarValue = (value) => {
+        const numericValue = parseFloat(value);
+        
+        if (numericValue > 1000 || numericValue < -1000) {
+            const formattedValue = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 1,
+            }).format(numericValue / 1000);
+    
+          return `${formattedValue}K`
+        } 
+        else {
+            return `$${numericValue}`
+        }
+        
+      };
+
+    const quickDollarValue = (value) => {
+        const numericValue = parseFloat(value);
+        return numericValue.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 1,
+        });
+    };
     
     return (
         <Box m="1.5rem 2.5rem">
@@ -29,37 +62,37 @@ function PropertyAnalytics({property}) {
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="ESTIMATED VALUE" title2="+/- PREV MONTH" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="ESTIMATED VALUE" title2="+/- PREV MONTH" value1={formatDollarValue(analytics.estimatedValue)} value2={formatDollarValue(analytics.valuePrevMonth)}/>
                 </Box>
                 <Box 
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="POTENTIAL EQUITY" title2="EST LOAN BALANCE" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="POTENTIAL EQUITY" title2="EST LOAN BALANCE" value1={formatDollarValue(analytics.potentialEquity)} value2={formatDollarValue(analytics.estimatedLoanBalance)}/>
                 </Box>
                 <Box 
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="DIFF +/- MEDIAN PRICE" title2="EST MORTGAGE PAYMENT" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="DIFF +/- MEDIAN PRICE" title2="EST MORTGAGE PAYMENT" value1={formatDollarValue(analytics.medianPrice)} value2={quickDollarValue(analytics.estimatedMortgage)}/>
                 </Box>     
                 <Box 
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="RENT ZESTIMATE" title2="POTENTIAL CASHFLOW" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="RENT ZESTIMATE" title2="POTENTIAL CASHFLOW" value1={quickDollarValue(analytics.rentZestimate)} value2={quickDollarValue(analytics.potentialCashFlow)}/>
                 </Box>  
                 <Box 
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="LAST SOLD DATE" title2="PRIMARY SCHOOL RATING" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="LAST SOLD DATE" title2="PRIMARY SCHOOL RATING" value1={analytics.lastSoldDate} value2={analytics.primarySchool}/>
                 </Box>  
                 <Box 
                     gridColumn="span 2"
                     gridRow="span 1"
                 >
-                    <PropAnalyticsBox title1="MIDDLE SCHOOL RATING" title2="HIGH SCHOOL RATING" value1="$823.7k" value2="+$2.8K"/>
+                    <PropAnalyticsBox title1="MIDDLE SCHOOL RATING" title2="HIGH SCHOOL RATING" value1={analytics.middleSchool} value2={analytics.highSchool}/>
                 </Box>        
                     
                     

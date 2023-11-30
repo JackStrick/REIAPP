@@ -70,6 +70,25 @@ const dbService = {
     }
   },
 
+  getPropertyAnalytics: async (zpid) => {
+    try {
+      const response = await axiosInstance.get(`/analytics/${zpid}`);
+      if (response.status === 200 || response.status === 201) {
+        const propAnalytics = response.data;
+        if (propAnalytics) {
+          localStorage.setItem('propertyAnalytics', JSON.stringify(propAnalytics));
+        }
+        return propAnalytics;
+      } else {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
+    }
+    catch (error) {
+      console.error('Error fetching property analytics:', error);
+      throw error;
+    }
+  },
+
   getUserProperties: async (userId) => {
     try {
       // Send a GET request to the user properties endpoint with the user ID

@@ -31,6 +31,17 @@ export const fetchPropertyById = createAsyncThunk('db/fetchPropertyById', async 
   }
 });
 
+export const fetchPropertyAnalytics = createAsyncThunk('db/fetchPropertyAnalytics', async (zpid, thunkAPI) => {
+  try {
+    const response = await dbService.getPropertyAnalytics(zpid);
+    return response;
+
+  } catch (error) {
+    const message = error.response?.data?.message || error.message || 'Error fetching property analytics';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 // Create an asynchronous thunk for fetching user properties
 export const fetchUserProperties = createAsyncThunk('db/fetchUserProperties', async (userId, thunkAPI) => {
   try {

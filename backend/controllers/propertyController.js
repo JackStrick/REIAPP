@@ -1,6 +1,7 @@
 // Import the Property model, which represents properties in the database
 const { default: mongoose } = require('mongoose');
 const Property = require('../models/propertyModel');
+const Analytics = require('../models/propertyAnalyticsModel');
 const UserProperties = require('../models/userPropertiesModel');
 
 // Define a controller function to get properties
@@ -21,7 +22,7 @@ const getProperties = async (req, res) => {
         res.status(404).json({ message: error.message });
         console.log("DIDNT WORK"); // Log a message indicating that the operation didn't work
     }
-}
+};
 
 const getPropertyById = async (req, res) => {
   const propertyId = req.params.propertyId;
@@ -38,10 +39,21 @@ const getPropertyById = async (req, res) => {
       // If there's an error (e.g., a database query error), catch it here
       // Respond with a status code of 404 (Not Found) and send an error message as a JSON response
       res.status(404).json({ message: error.message });
-      console.log("DIDNT WORK"); // Log a message indicating that the operation didn't work
   }
 }
 
+const getPropertyAnalytics = async (req, res) => {
+  const zpid = req.params.zpid;
+
+  try {
+    const analytics = await Analytics.find({ zpid: zpid });
+    res.status(200).json(analytics);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
+
+};
 
 const getUserProperties = async (req, res) => {
   const userId = req.params.userId;
@@ -136,6 +148,7 @@ const removeUserProperty = async (req, res) => {
 // Export the getProperties function to make it available for use in routes
 module.exports = {
     getProperties,
+    getPropertyAnalytics,
     getPropertyById,
     getUserProperties,
     isUserProperty,

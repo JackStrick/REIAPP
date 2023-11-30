@@ -12,12 +12,12 @@ function PropertyPopup({ open, onClose, property }) {
   
 
     // Function to format a number as a dollar value
-    const formatDollarValue = (value) => {
-        return value.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        });
-    };
+  const formatDollarValue = (value) => {
+      return value.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      });
+  };
   
 
   // Function to navigate to the property page
