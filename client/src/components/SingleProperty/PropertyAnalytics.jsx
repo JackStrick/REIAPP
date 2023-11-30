@@ -13,16 +13,23 @@ function PropertyAnalytics({analytics}) {
 
     const formatDollarValue = (value) => {
         const numericValue = parseFloat(value);
-        
+        let divisor = 1000;
+        if (numericValue > 1000000 || numericValue < -1000000) {
+            divisor = 1000000;
+        }
         if (numericValue > 1000 || numericValue < -1000) {
             const formattedValue = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             minimumFractionDigits: 0,
             maximumFractionDigits: 1,
-            }).format(numericValue / 1000);
-    
-          return `${formattedValue}K`
+            }).format(numericValue / divisor);
+        
+            if (divisor > 1000) {
+                return `${formattedValue}M`
+            }
+            
+            return `${formattedValue}K`
         } 
         else {
             return `$${numericValue}`
