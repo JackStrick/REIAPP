@@ -4,6 +4,7 @@ import { useSelector, useDispatch} from 'react-redux'
 import { fetchPropertyById, fetchPropertyAnalytics } from '../features/api/dbSlice';
 import PropertyAnalytics from '../components/SingleProperty/PropertyAnalytics';
 import BasicInfo from '../components/SingleProperty/BasicInfo';
+import PropertyDetails from '../components/SingleProperty/PropertyDetails';
 import { Box, Button, useMediaQuery, Typography, Card } from '@mui/material'
 import Spinner from '../components/Misc/Spinner';
 
@@ -44,6 +45,9 @@ function SingleProperty() {
             </Card>
             <Card sx={{marginTop: 3}} variant='outlined'>
                 <PropertyAnalytics analytics={analytics} />
+            </Card>
+            <Card sx={{marginTop: 3}} variant='outlined'>
+                <PropertyDetails property={property} analytics={analytics}/>
             </Card>
 
            

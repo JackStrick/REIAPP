@@ -28,7 +28,7 @@ function BasicInfo({property}) {
                     borderRadius="0.55rem"
                 >
                     <CardHeader title={[property]} subtitle={property.PropUsage}/>
-                    <Typography variant="h6" color="text.secondary" fontWeight="bold" sx={{ mb: "5px" }}>{property.Bedroom} Bed | {property.Bathroom} Bath </Typography>
+                    <Typography variant="h6" color="text.secondary" fontWeight="bold" sx={{ mb: "5px" }}>{property.Bedroom} Bed | {property.Bathroom} Bath | {property.SquareFoot} Sqft</Typography>
                     <Chip sx={{ marginTop: 1}} label={property.PropertyType}/>
 
                     <Box sx={{ marginTop: 5}} flexDirection="column">

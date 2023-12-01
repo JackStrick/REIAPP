@@ -29,6 +29,7 @@ const propertySchema = mongoose.Schema({
     Lat: String,
     Lng: String,
     zpid: String,
+    SquareFoot: String,
 },
 {
     timestamps: true
