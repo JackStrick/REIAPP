@@ -31,6 +31,7 @@ function PropertyTable({ properties, name }) {
     }, [user, dispatch]);
 
     const handleViewClick = (property) => {
+        //setSelectedProperty(property);
         
     };
 
@@ -58,7 +59,7 @@ function PropertyTable({ properties, name }) {
                         <TableCell>Zip</TableCell>
                         <TableCell>Latest Sale Price</TableCell>
                         <TableCell>Lead Type</TableCell>
-                        <TableCell>Go To</TableCell>
+                        
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -70,14 +71,13 @@ function PropertyTable({ properties, name }) {
                         <TableCell>{property.ZipCode}</TableCell>
                         <TableCell>{formatDollarValue(property.LatestSalePrice)}</TableCell>
                         <TableCell>{property.PropertyType}</TableCell>
-                        <TableCell>
-                            <Button onClick={handleViewClick(property)}/>
-                        </TableCell>
+                        
                     </TableRow>
                     ))}
                 </TableBody>
                 </Table>
             </TableContainer>
+            {selectedProperty && <Map properties={[selectedProperty]} />}
         </div>
     );
     }

@@ -7,7 +7,7 @@ import StatBox from '../Misc/StatBox'
 
 
 function BasicInfo({property}) {
-    
+    console.log(property)
     
     
     return (

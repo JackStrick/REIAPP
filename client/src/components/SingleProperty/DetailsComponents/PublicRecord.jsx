@@ -69,10 +69,10 @@ function PublicRecord({property, analytics}) {
                             <Typography variant="h6" marginTop={1}>Heating:</Typography>
                             <Typography variant="h6" marginTop={1}>Cooling:</Typography>
                             <Typography variant="h6" marginTop={1}>County:</Typography>
-                            <Typography variant="h6" marginTop={1}>Neighborhood:</Typography>
-                            <Typography variant="h6" marginTop={1}>Elementary School (Rating):</Typography>
-                            <Typography variant="h6" marginTop={1}>Middle School (Rating):</Typography>
-                            <Typography variant="h6" marginTop={1}>High School (Rating):</Typography>
+                            <Typography variant="h6" marginTop={1}>School Ratings:</Typography>
+                            <Typography variant="h6" marginTop={1}>Elementary:</Typography>
+                            <Typography variant="h6" marginTop={1}>Middle:</Typography>
+                            <Typography variant="h6" marginTop={1}>High-School:</Typography>
                             <Typography variant="h6" marginTop={1}>Legal Description:</Typography>
                             
                         </Grid>
