@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 
 
 
-function AlertPop({ open }) {
+function AlertPop({ open, linkTo, buttonText, title, desc  }) {
 
     return (
         <Dialog open={open} PaperProps={{
@@ -16,13 +16,13 @@ function AlertPop({ open }) {
             margin: '16px',    // Adjust the margin as needed
             },
         }}>
-            <DialogTitle>No Properties Added</DialogTitle>
+            <DialogTitle>{title}</DialogTitle>
             <DialogContent>
-                <Typography variant="h6">Add properties to your favorites list to find deals</Typography>
+                <Typography variant="h6">{desc}</Typography>
             </DialogContent>
             <DialogActions>
-                <Button onClick={function () {window.location.href = `/leadfind`}} color="primary">
-                    Find Leads
+                <Button onClick={function () {window.location.href = linkTo}} color="primary">
+                    {buttonText}
                 </Button>
             </DialogActions>
         </Dialog>

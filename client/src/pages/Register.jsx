@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import {register, reset} from '../features/auth/authSlice'
 import Spinner from '../components/Misc/Spinner'
+import AlertPop from '../components/Misc/AlertPop'
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ function Register() {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if(password !== password2){
+        /*if(password !== password2){
             toast.error('Passwords do not match')
         } else {
             const userData = {
@@ -65,7 +66,8 @@ function Register() {
                 password,
             }
             dispatch(register(userData))
-        }
+        }*/
+        toast.error('New user registration is currently not allowed for public access.')        
     }
   
     if(isLoading) {
@@ -79,6 +81,8 @@ function Register() {
                 <FaUser /> Register
             </h1>
             <p>Please create an account</p>
+            <AlertPop open={true} linkTo={`/login`} buttonText={"Login"} title={"Unauthorized"} desc={"New user registration is currently not allowed for public access."}/>
+
         </section>
 
         <section className='form user-auth'>

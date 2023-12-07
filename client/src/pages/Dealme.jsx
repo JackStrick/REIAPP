@@ -63,7 +63,7 @@ function Dealme() {
               </Select>
             </FormControl>
             :
-              <AlertPop open={true} /> 
+              <AlertPop open={true} linkTo={`/leadfind`} buttonText={"Find Leads"} title={"No Properties Added"} desc={"Add properties to your favorites list to find deals"} /> 
           }
 
           {userProperties.length > 0 && property ? (
