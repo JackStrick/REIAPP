@@ -70,6 +70,8 @@ function Dealme() {
             <Box>
                 <BasicInfo property={property} />
 
+                <hr />
+
                 <DealStrategy property={property} />
             </Box>
             

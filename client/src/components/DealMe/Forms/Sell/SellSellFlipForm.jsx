@@ -12,16 +12,13 @@ import {
   useTheme,
 } from '@mui/material';
 
-function LeaseOptionForm({ formData, onChange}) {
+function SellSellFlipForm({ formData }) {
   const theme = useTheme();
 
   const handleInputChange = (e) => {
     // Update the specific field in formData when the input changes
     const { name, value } = e.target;
-    onChange((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    
   };
 
   return (
@@ -104,4 +101,4 @@ function LeaseOptionForm({ formData, onChange}) {
   );
 }
 
-export default LeaseOptionForm;
+export default SellSellFlipForm;
