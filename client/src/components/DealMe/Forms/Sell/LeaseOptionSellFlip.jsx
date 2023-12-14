@@ -14,13 +14,15 @@ import {
   } from '@mui/material';
 
 
-function SellSellFlipForm({ formData }) {
+function LeaseOptionSellFlip({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
         askingPrice: 0,
         monthsToSell: 0,
         marketingCost: 0,
+        monthlyHoldingCost: 0,
         sellingCost: 0,
+        estimatedRepairCost: 0,
     });
    
 
@@ -42,78 +44,49 @@ function SellSellFlipForm({ formData }) {
       currency: 'USD',
       });
     };
-    
-    const getPercentageOfARV = () => {
-        const estPurch = parseFloat(formData.estPurchasePrice) || 0;
-        const marketing = parseFloat(sellerFormState.marketingCost) || 0;
-        const selling = parseFloat(sellerFormState.sellingCost) || 0;
-        const arv = parseFloat(formData.arv) || 0;
 
-        const value = ((estPurch + marketing + selling + getRepairCost() + getOtherCosts()) / arv) * 100;
-        if (value <= 100 && value >= 0) {
-          return value;
-        }
-        return 0;
-        
-    }; 
-
-    const getRepairCost = () => {
-        const numRepairCost = parseFloat(formData.repairCost) || 0;
-        const numHedgeExpense = parseFloat(formData.hedgeExpense) || 0;
-        return numRepairCost + numRepairCost * (numHedgeExpense / 100);
-
-    };
-
-    const getAllCost = () => {
-        const repair = getRepairCost();
-        const other = getOtherCosts();
-        const marketing = parseFloat(sellerFormState.marketingCost) || 0;
-        const selling = parseFloat(sellerFormState.sellingCost) || 0;
-        const purch  = parseFloat(formData.estPurchasePrice) || 0;
-
-        return repair + other + marketing + selling + purch;
-    };
 
     const getHoldingTime = () => {
-        const numRepairPeriod = parseFloat(formData.repairPeriod) || 0;
         const numMonthsToSell = parseFloat(sellerFormState.monthsToSell) || 0;
-        return numRepairPeriod + numMonthsToSell;
+        return numMonthsToSell;
     };
-    
-    const getOtherCosts = () => { 
-      const numHoldingTime = getHoldingTime();
-      const numMonthlyHoldingCost = parseFloat(formData.monthlyHoldingCost) || 0;
-      const numClosingCost = parseFloat(formData.closingCost) || 0;
-      const numPropInsurance = parseFloat(formData.propertyInsurance) || 0;
-      const numPropertyTaxes = parseFloat(formData.propertyTax) || 0;
-      const numHOA = parseFloat(formData.hoa) || 0;
 
+    const getMonthlyCost = () => {
+        const numMonthlyHoldingCost = parseFloat(sellerFormState.monthlyHoldingCost) || 0;
+        const numHoldingTime = getHoldingTime();
+        return numMonthlyHoldingCost * numHoldingTime;
+    };
 
-      return (
-        numHoldingTime * numMonthlyHoldingCost +
-        numClosingCost +
-        (numHoldingTime * numPropInsurance) +
-        (numHoldingTime * numPropertyTaxes) +
-        (numHoldingTime * numHOA)
-      );
+    const getOutOfPocketCost = () => {
+        const optionPayment = parseFloat(formData.optionPayment) || 0;
+        const rentalPayment = parseFloat(formData.monthlyRental) || 0;
+        const monthsToSell = parseFloat(sellerFormState.monthsToSell) || 0;
+        const marketing = parseFloat(sellerFormState.marketingCost) || 0;
+        const holdingCost = parseFloat(sellerFormState.monthlyHoldingCost) || 0;
+        const repairCost = parseFloat(sellerFormState.estimatedRepairCost) || 0;
+
+        return optionPayment + (rentalPayment * monthsToSell) + marketing + (holdingCost * monthsToSell) + repairCost;
+
+    };
+
+    const getAllInCost = () => {
+        const cost = getOutOfPocketCost();
+        const option = parseFloat(formData.optionPayment) || 0;
+        const sales = parseFloat(formData.salesPrice) || 0;
+        const selling = parseFloat(sellerFormState.sellingCost) || 0;
+        const credit = parseFloat(formData.monthlyCredit) || 0;
+        const monthsToSell = parseFloat(sellerFormState.monthsToSell) || 0;
+        return sales + cost + selling - option - (credit * monthsToSell);
     };
 
     const getNetProfit = () => {  
         const ask = parseFloat(sellerFormState.askingPrice) || 0;
-        const allin = getAllCost();
+        const allin = getAllInCost();
         return ask - allin;
     };
 
-    const getCashOnCash = () => {
-      const allin = getAllCost();
-      const sell = parseFloat(sellerFormState.sellingCost) || 0;
-      const profit = getNetProfit();
-
-      return (profit / (allin - sell)) * 100;
-    };
-
-    const getBuyerROI = () => {
-        const allin = getAllCost() || 0;
+    const getROI = () => {
+        const allin = getAllInCost() || 0;
         const profit = getNetProfit() || 0;
         
         const final = (profit / allin) * 100;
@@ -121,6 +94,14 @@ function SellSellFlipForm({ formData }) {
         return final;
 
     };
+
+    const getCashOnCash = () => {
+        const allin = getOutOfPocketCost();
+        const profit = getNetProfit();
+  
+        return (profit / allin) * 100;
+      };
+
 
     return (
         <Box sx={{marginTop: 2}}>
@@ -170,10 +151,34 @@ function SellSellFlipForm({ formData }) {
             </FormControl>
             <FormControl fullWidth sx={{ marginBottom: 2 }}>
                 <TextField 
+                label="Monthly Holding Costs" 
+                type="number"
+                name='monthlyHoldingCost'
+                value={sellerFormState.monthlyHoldingCost}
+                onChange={handleInputChange}
+                InputProps={{
+                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                }}
+                />
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                <TextField 
                 label="Selling Costs" 
                 type="number"
                 name='sellingCost'
                 value={sellerFormState.sellingCost}
+                onChange={handleInputChange}
+                InputProps={{
+                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                }}
+                />
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                <TextField 
+                label="Estimated Repair Cost" 
+                type="number"
+                name='estimatedRepairCost'
+                value={sellerFormState.estimatedRepairCost}
                 onChange={handleInputChange}
                 InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -194,7 +199,7 @@ function SellSellFlipForm({ formData }) {
                         <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Purchase Price</Typography>   
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.salesPrice)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -204,7 +209,7 @@ function SellSellFlipForm({ formData }) {
                         <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Repairs</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(getRepairCost())}</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.estimatedRepairCost)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -221,17 +226,17 @@ function SellSellFlipForm({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Other Costs</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Holding Costs</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(getOtherCosts())}</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(getMonthlyCost())}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Marketing Cost</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Marketing Cost</Typography>
                     </Grid>
                     <Grid item xs={6}>    
                         <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.marketingCost)}</Typography>
@@ -241,7 +246,7 @@ function SellSellFlipForm({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Selling Cost</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Selling Cost</Typography>
                     </Grid>
                     <Grid item xs={6}>    
                         <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.sellingCost)}</Typography>
@@ -251,10 +256,10 @@ function SellSellFlipForm({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 1 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>% of ARV</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Cash Out Of Pocket</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{getPercentageOfARV().toFixed(2)}%</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(getOutOfPocketCost())}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -276,7 +281,17 @@ function SellSellFlipForm({ formData }) {
                         <Typography className="analysis-typography" align="left" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>Total All-in Cost</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>-{formatDollarValue(getAllCost())}</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue(getAllInCost())}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6}>
+                        <Typography className="analysis-typography" align="left" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>Total Cash Required For Project</Typography>
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography className="analysis-typography" align="right" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue(getOutOfPocketCost())}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -286,12 +301,12 @@ function SellSellFlipForm({ formData }) {
             <FormControl fullWidth  sx={{ marginTop: 0, marginBottom: 0, backgroundColor: '#00c02178' }}>
                 <Grid container color={"success"}>
                     <Grid item xs={4} sx={{ marginTop: 2}}>
-                        <Typography className="analysis-typography" align="center" variant="h6" >YOUR NET PROFIT</Typography>
+                        <Typography className="analysis-typography" align="center" variant="h6" >TOTAL NET PROFIT</Typography>
                         <Typography className="analysis-typography" align="center" variant="h4" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue(getNetProfit())}</Typography>
                     </Grid>
                     <Grid item xs={4} sx={{ marginTop: 2}}>
                         <Typography className="analysis-typography" align="center" variant="h6" >ROI</Typography>
-                        <Typography className="analysis-typography" align="center" variant="h4" fontWeight="bold" sx={{ marginBottom: 2 }}>{getBuyerROI().toFixed(2)}%</Typography>
+                        <Typography className="analysis-typography" align="center" variant="h4" fontWeight="bold" sx={{ marginBottom: 2 }}>{getROI().toFixed(2)}%</Typography>
                     </Grid>
                     <Grid item xs={4} sx={{ marginTop: 2}}>
                         <Typography className="analysis-typography" align="center" variant="h6" >CASH ON CASH</Typography>
@@ -299,11 +314,8 @@ function SellSellFlipForm({ formData }) {
                     </Grid>
                 </Grid>
             </FormControl>
-
-            
-
         </Box>
     )
 }
 
-export default SellSellFlipForm
+export default LeaseOptionSellFlip

@@ -51,7 +51,6 @@ const formsDataStructure = {
         ballonTerm: '',
         monthlyPayment: '',
     },
-    // ... add more forms as needed
   };
   
   export default formsDataStructure;

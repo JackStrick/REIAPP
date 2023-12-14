@@ -113,13 +113,14 @@ function BuyWholesaleForm({ formData, onChange}) {
 
       <FormControl fullWidth sx={{ marginBottom: 2 }}>
         <TextField 
-          label="Repair Period (# Months)" 
+          label="Repair Period" 
           type="number"
           name='repairPeriod'
           value={formData.repairPeriod}
           onChange={handleInputChange}
           InputProps={{
             startAdornment: <InputAdornment position="start">#</InputAdornment>,
+            endAdornment: <InputAdornment position="end">months</InputAdornment>,
           }}
         />
       </FormControl>

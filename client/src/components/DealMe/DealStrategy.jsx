@@ -1,14 +1,18 @@
 import React, {useState} from 'react'
 import FlexBetween from '../Misc/FlexBetween'
 import { Box, Grid, ToggleButton, ToggleButtonGroup, Typography, useTheme, FormControl, InputLabel } from '@mui/material'
-import LeaseOptionForm from './Forms/Buy/BuyLeaseOptionForm';
 import formsDataStructure from './Forms/Buy/FormsDataStructure';
+import LeaseOptionForm from './Forms/Buy/BuyLeaseOptionForm';
+import BuyWholesaleForm from './Forms/Buy/BuyWholesaleForm';
+import BuyPurchaseForm from './Forms/Buy/BuyPurchaseForm';
+import BuySellerFinanceForm from './Forms/Buy/BuySellerFinanceForm';
 import SellSellFlipForm from './Forms/Sell/SellSellFlipForm';
 import SellRentForm from './Forms/Sell/SellRentForm';
 import SellLeaseOptionForm from './Forms/Sell/SellLeaseOptionForm';
 import SellSellerFinanceForm from './Forms/Sell/SellSellerFinanceForm';
-import BuyWholesaleForm from './Forms/Buy/BuyWholesaleForm';
 import SellWholesaleForm from './Forms/Sell/SellWholesaleForm';
+import SellerFinanceSellFlip from './Forms/Sell/SellerFinanceSellFlip';
+import LeaseOptionSellFlip from './Forms/Sell/LeaseOptionSellFlip';
 
 function DealStrategy() {
     
@@ -52,8 +56,14 @@ function DealStrategy() {
                     {buyStrategy === 'wholesaling' && sellStrategy !== null && (
                         <BuyWholesaleForm formData={formData} onChange={setFormData} />
                     )}
+                    {buyStrategy === 'purchase' && sellStrategy !== null && (
+                        <BuyPurchaseForm formData={formData} onChange={setFormData} />
+                    )}
                     {buyStrategy === 'lease' && sellStrategy !== null && (
                         <LeaseOptionForm formData={formData} onChange={setFormData} />
+                    )}
+                    {buyStrategy === 'seller' && sellStrategy !== null && (
+                        <BuySellerFinanceForm formData={formData} onChange={setFormData} />
                     )}
 
 
@@ -81,9 +91,26 @@ function DealStrategy() {
                     {sellStrategy === 'wholesaling' && buyStrategy !== null && (
                         <SellWholesaleForm formData={formData}  />
                     )}
-                    {sellStrategy === 'sellflip' && buyStrategy !== null && (
+                    {sellStrategy === 'sellflip' && buyStrategy === 'purchase' && (
                         <SellSellFlipForm formData={formData}  />
                     )}
+                    {sellStrategy === 'sellflip' && buyStrategy === 'lease' && (
+                        <LeaseOptionSellFlip formData={formData}  />
+                    )}
+                    {sellStrategy === 'sellflip' && buyStrategy === 'seller' && (
+                        <SellerFinanceSellFlip formData={formData}  />
+                    )}
+
+
+
+
+
+
+
+
+
+
+                    
                     {sellStrategy === 'rent' && buyStrategy !== null && (
                         <SellRentForm formData={formData}  />
                     )}

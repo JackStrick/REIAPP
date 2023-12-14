@@ -14,7 +14,7 @@ import {
   } from '@mui/material';
 
 
-function SellSellFlipForm({ formData }) {
+function SellerFinanceSellFlip({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
         askingPrice: 0,
@@ -126,7 +126,7 @@ function SellSellFlipForm({ formData }) {
         <Box sx={{marginTop: 2}}>
             {/* Title */}
             <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>
-                Sell/Flip Analysis
+                Seller Finance/Flip Analysis
             </Typography>
             {/* Colored Bar */}
             <Divider sx={{ backgroundColor: theme.palette.primary.main, height: 3, marginY: 2 }} />
@@ -183,12 +183,70 @@ function SellSellFlipForm({ formData }) {
 
             <hr />
 
+
+
+
             {/* Subheading */}
             <Typography variant="h4" fontWeight="bold" sx={{ marginTop: 2, marginBottom: 1 }}>
               Analysis
             </Typography>
+            <Typography variant="h6" fontWeight="bold">Loan with seller</Typography>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total Loan Amount</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Cash Required For Project</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total Loan Payments</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Term with Seller</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Balance after {getHoldingTime()} months</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.estPurchasePrice)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
 
-            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+
+
+            <hr />
+
+            <FormControl fullWidth sx={{ marginTop: 2, marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6} position="end">
                         <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Purchase Price</Typography>   
@@ -231,23 +289,14 @@ function SellSellFlipForm({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Marketing Cost</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Total Marketing Cost</Typography>
                     </Grid>
                     <Grid item xs={6}>    
                         <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.marketingCost)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
-            <FormControl fullWidth sx={{ marginBottom: 0 }}>
-                <Grid container >
-                    <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Selling Cost</Typography>
-                    </Grid>
-                    <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.sellingCost)}</Typography>
-                    </Grid>
-                </Grid>
-            </FormControl>
+            
             <FormControl fullWidth sx={{ marginBottom: 1 }}>
                 <Grid container >
                     <Grid item xs={6}>
@@ -280,6 +329,16 @@ function SellSellFlipForm({ formData }) {
                     </Grid>
                 </Grid>
             </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6}>
+                        <Typography className="analysis-typography" align="left" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>Total Selling Cost</Typography>
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography className="analysis-typography" align="right" variant="h6" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.sellingCost)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
 
             
 
@@ -306,4 +365,4 @@ function SellSellFlipForm({ formData }) {
     )
 }
 
-export default SellSellFlipForm
+export default SellerFinanceSellFlip
