@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
     Box,
     Divider,
     FormControl,
     InputAdornment,
-    InputLabel,
-    MenuItem,
-    Select,
     TextField,
     Typography,
     Grid,
     useTheme,
   } from '@mui/material';
-import { get } from 'mongoose';
+
 
 
 function SellerFinanceSellFlip({ formData }) {

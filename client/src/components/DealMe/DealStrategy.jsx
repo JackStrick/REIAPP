@@ -7,12 +7,13 @@ import BuyWholesaleForm from './Forms/Buy/BuyWholesaleForm';
 import BuyPurchaseForm from './Forms/Buy/BuyPurchaseForm';
 import BuySellerFinanceForm from './Forms/Buy/BuySellerFinanceForm';
 import SellSellFlipForm from './Forms/Sell/SellSellFlipForm';
-import SellRentForm from './Forms/Sell/SellRentForm';
+import PurchaseRentForm from './Forms/Sell/PurchaseRentForm';
 import SellLeaseOptionForm from './Forms/Sell/SellLeaseOptionForm';
 import SellSellerFinanceForm from './Forms/Sell/SellSellerFinanceForm';
 import SellWholesaleForm from './Forms/Sell/SellWholesaleForm';
 import SellerFinanceSellFlip from './Forms/Sell/SellerFinanceSellFlip';
 import LeaseOptionSellFlip from './Forms/Sell/LeaseOptionSellFlip';
+import LeaseOptionRent from './Forms/Sell/LeaseOptionRent';
 
 function DealStrategy() {
     
@@ -100,7 +101,9 @@ function DealStrategy() {
                     {sellStrategy === 'sellflip' && buyStrategy === 'seller' && (
                         <SellerFinanceSellFlip formData={formData}  />
                     )}
-
+                    {sellStrategy === 'rent' && buyStrategy === 'purchase' && (
+                        <PurchaseRentForm formData={formData}  />
+                    )}
 
 
 
@@ -111,9 +114,6 @@ function DealStrategy() {
 
 
                     
-                    {sellStrategy === 'rent' && buyStrategy !== null && (
-                        <SellRentForm formData={formData}  />
-                    )}
                     {sellStrategy === 'lease' && buyStrategy !== null && (
                         <SellLeaseOptionForm formData={formData}  />
                     )}
