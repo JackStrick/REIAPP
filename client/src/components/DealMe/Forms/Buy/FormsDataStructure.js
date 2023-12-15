@@ -48,7 +48,7 @@ const formsDataStructure = {
         downPayment: '',
         interestRate: '',
         amortizationTerm: '',
-        ballonTerm: '',
+        balloonTerm: '',
         monthlyPayment: '',
     },
   };
