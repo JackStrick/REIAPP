@@ -10,10 +10,9 @@ import {
     useTheme,
   } from '@mui/material';
 
-function LeaseOptionRent({ formData }) {
+function SellerFinanceRent({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
-        rentalHolding: 0,
         monthlyOperating: 0,
         percentVacant: 0,
         monthlyOpCost: 0,
@@ -39,17 +38,57 @@ function LeaseOptionRent({ formData }) {
         });
     };
 
+    const getOtherCosts = () => { 
+        const numHoldingTime = getHoldingTime();
+        const numMonthlyHoldingCost = parseFloat(formData.monthlyHoldingCost) || 0;
+        const numClosingCost = parseFloat(formData.closingCost) || 0;
+        const numPropInsurance = parseFloat(formData.propertyInsurance) || 0;
+        const numPropertyTaxes = parseFloat(formData.propertyTax) || 0;
+        const numHOA = parseFloat(formData.hoa) || 0;
+  
+  
+        return (
+          numHoldingTime * numMonthlyHoldingCost +
+          numClosingCost +
+          (numHoldingTime * numPropInsurance) +
+          (numHoldingTime * numPropertyTaxes) +
+          (numHoldingTime * numHOA)
+        );
+      };
+
+    const getRepairCost = () => {
+        const numRepairCost = parseFloat(formData.repairCost) || 0;
+        const numHedgeExpense = parseFloat(formData.hedgeExpense) || 0;
+        return numRepairCost + numRepairCost * (numHedgeExpense / 100);
+    };
+    const getHoldingTime = () => {
+        const numRepairPeriod = parseFloat(formData.repairPeriod) || 0;
+        const numMonthsToSell = parseFloat(sellerFormState.monthsToSell) || 0;
+        return numRepairPeriod + numMonthsToSell;
+    };
+    const getLoanPayments = () => { 
+        const monthlyPayment = parseFloat(formData.monthlyPayment) || 0;
+        const numHoldingTime = getHoldingTime();
+
+        return monthlyPayment * numHoldingTime;
+    };
+
+    const cashRequired = () => {
+        return getOtherCosts() + getRepairCost() + getLoanPayments() + (parseFloat(formData.downPayment) || 0);
+    };
+
     const netOpIncome = () => {
         const numMonthlyOperating = parseFloat(sellerFormState.monthlyOperating) || 0;
         const numPercentVacant = parseFloat(sellerFormState.percentVacant) || 0;
         const numMonthlyOpCost = parseFloat(sellerFormState.monthlyOpCost) || 0;
-        return numMonthlyOperating - ((numMonthlyOperating * (numPercentVacant / 100)) + numMonthlyOpCost);
+        const numMonthlyFees = (parseFloat(formData.propertyInsurance) || 0) + (parseFloat(formData.propertyTax) || 0) + (parseFloat(formData.hoa) || 0);
+        return numMonthlyOperating - ((numMonthlyOperating * (numPercentVacant / 100)) + numMonthlyOpCost) - numMonthlyFees;
     };
 
     
     const getCashOnCash = () => {
-        const cash = parseFloat(formData.optionPayment) || 0;
-        const profit = (netOpIncome() - parseFloat(formData.monthlyRental)) * 12;
+        const cash = cashRequired();
+        const profit = ((netOpIncome() - formData.monthlyPayment) * 12)
 
         return (profit / cash) * 100;
     };
@@ -59,23 +98,11 @@ function LeaseOptionRent({ formData }) {
         <Box sx={{marginTop: 2}}>
             {/* Title */}
             <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 'bold' }}>
-                Rental Analysis
+                Seller Finance / Rental Analysis
             </Typography>
             {/* Colored Bar */}
             <Divider sx={{ backgroundColor: theme.palette.primary.main, height: 3, marginY: 2 }} />
-            <FormControl fullWidth sx={{ marginBottom: 2 }}>
-                <TextField 
-                label="Months to Keep as a Rental" 
-                type="number"
-                name='rentalHolding'
-                value={sellerFormState.rentalHolding}
-                onChange={handleInputChange}
-                InputProps={{
-                    startAdornment: <InputAdornment position="start">#</InputAdornment>,
-                    endAdornment: <InputAdornment position="end">months</InputAdornment>,
-                }}
-                />
-            </FormControl>
+            
             <FormControl fullWidth sx={{ marginBottom: 2 }}>
                 <TextField 
                 label="Monthly Operating Income" 
@@ -126,7 +153,17 @@ function LeaseOptionRent({ formData }) {
                         <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total Cash Required For Project</Typography>   
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.optionPayment)}</Typography>
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(cashRequired())}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total All-In Cost For Project</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue((cashRequired() + parseFloat(formData.estPurchasePrice)) - parseFloat(formData.downPayment))}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -164,6 +201,16 @@ function LeaseOptionRent({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Insurance, Taxes, & HOA Payments</Typography>
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue((parseFloat(formData.propertyInsurance) + parseFloat(formData.propertyTax) + parseFloat(formData.hoa)))}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6}>
                         <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Net Operating Income</Typography>
                     </Grid>
                     <Grid item xs={6}>    
@@ -174,10 +221,10 @@ function LeaseOptionRent({ formData }) {
             <FormControl fullWidth sx={{ marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Rental Payments</Typography>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Loan Payments</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.monthlyRental)}</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.monthlyPayment)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -187,17 +234,7 @@ function LeaseOptionRent({ formData }) {
                         <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Monthy Cash Flow</Typography>
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(netOpIncome() - formData.monthlyRental)}</Typography>
-                    </Grid>
-                </Grid>
-            </FormControl>
-            <FormControl fullWidth sx={{ marginBottom: 0 }}>
-                <Grid container >
-                    <Grid item xs={6}>
-                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Annual Cash Flow</Typography>
-                    </Grid>
-                    <Grid item xs={6}>    
-                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue((netOpIncome() - formData.monthlyRental) * 12)}</Typography>
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue(netOpIncome() - formData.monthlyPayment)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
@@ -206,7 +243,7 @@ function LeaseOptionRent({ formData }) {
                 <Grid container color={"success"}>
                     <Grid item xs={6} sx={{ marginTop: 2}}>
                         <Typography className="analysis-typography" align="center" variant="h6" >ANNUAL CASH FLOW</Typography>
-                        <Typography className="analysis-typography" align="center" variant="h4" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue((netOpIncome() - formData.monthlyRental) * sellerFormState.rentalHolding)}</Typography>
+                        <Typography className="analysis-typography" align="center" variant="h4" fontWeight="bold" sx={{ marginBottom: 2 }}>{formatDollarValue((netOpIncome() - formData.monthlyPayment) * 12)}</Typography>
                     </Grid>
                     <Grid item xs={6} sx={{ marginTop: 2}}>
                         <Typography className="analysis-typography" align="center" variant="h6" >CASH ON CASH</Typography>
@@ -221,4 +258,4 @@ function LeaseOptionRent({ formData }) {
     )
 }
 
-export default LeaseOptionRent
+export default SellerFinanceRent

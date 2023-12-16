@@ -10,7 +10,8 @@ import {
     useTheme,
   } from '@mui/material';
 
-function SellLeaseOptionForm({ formData }) {
+
+function PurchaseLeaseOption({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
         salesPrice: 0,
@@ -41,26 +42,61 @@ function SellLeaseOptionForm({ formData }) {
     };
 
     const getBackEnd = () => {
-        const salesPrice = (parseFloat(sellerFormState.salesPrice) || 0) - (parseFloat(formData.salesPrice) || 0);
-        const optionPayment = (parseFloat(formData.optionPayment) || 0) - (parseFloat(sellerFormState.optionPayment) || 0);
-        const credits = (parseFloat(formData.monthlyCredit) || 0) - (parseFloat(sellerFormState.monthlyCredits) || 0);
+        const salesPrice = (parseFloat(sellerFormState.salesPrice) || 0) - (parseFloat(formData.estPurchasePrice) || 0);
+        const optionPayment = (parseFloat(sellerFormState.optionPayment) || 0);
+        const credits = (parseFloat(sellerFormState.monthlyCredits) || 0);
         const leaseTerm = parseFloat(sellerFormState.optionTerm) || 0;
+        const repairCost = getRepairCost();
+        const side = getMonthlySideCost();
+        const repairPeriod = parseFloat(formData.repairPeriod) || 0;
+        const closingCost = parseFloat(formData.closingCost) || 0;
 
-        return (salesPrice + optionPayment + (credits * leaseTerm));
+        const totalSide = side * repairPeriod;
+
+        return (salesPrice - optionPayment - (credits * leaseTerm) - repairCost - totalSide - closingCost);
 
 
     };
 
     const getNetProfit = () => {
-      const totalCashFlow = (sellerFormState.monthlyRental - formData.monthlyRental) * sellerFormState.optionTerm
-      const creditsDifference = (formData.monthlyCredit - sellerFormState.monthlyCredits) * sellerFormState.optionTerm
+      const totalCashFlow = getTotalCashFlow()
+      const optionPayment = parseFloat(sellerFormState.optionPayment) || 0;
+      const backend = getBackEnd();
 
-      return (totalCashFlow + creditsDifference)
+      return (totalCashFlow + optionPayment + backend);
+    };
+    const getRepairCost = () => {
+        const numRepairCost = parseFloat(formData.repairCost) || 0;
+        const numHedgeExpense = parseFloat(formData.hedgeExpense) || 0;
+        return numRepairCost + numRepairCost * (numHedgeExpense / 100);
+    };
+
+    const getMonthlySideCost = () => {
+        const numPropInsurance = parseFloat(formData.propertyInsurance) || 0;
+        const numPropertyTaxes = parseFloat(formData.propertyTax) || 0;
+        const numHOA = parseFloat(formData.hoa) || 0;
+        const holding = parseFloat(formData.monthlyHoldingCost) || 0;
+        return numPropInsurance + numPropertyTaxes + numHOA + holding;
+      };
+
+    const cashRequired = () => {    
+        const purch = parseFloat(formData.estPurchasePrice) || 0;
+        const repair = getRepairCost();
+        const side = getMonthlySideCost();
+
+        return purch + repair + (side * (parseFloat(formData.repairPeriod) || 0)) + parseFloat(formData.closingCost);
+
+    };
+
+    const getTotalCashFlow = () => {
+        const numPropInsurance = parseFloat(formData.propertyInsurance) || 0;
+        const numPropertyTaxes = parseFloat(formData.propertyTax) || 0;
+        const numHOA = parseFloat(formData.hoa) || 0;
+
+        return (sellerFormState.monthlyRental - (numPropInsurance + numPropertyTaxes + numHOA)) * sellerFormState.optionTerm;
     };
 
     
-    
-
 
     return (
         <Box sx={{marginTop: 2}}>
@@ -142,70 +178,80 @@ function SellLeaseOptionForm({ formData }) {
             <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6} position="end">
-                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Out - Us to Seller Sales Price</Typography>   
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total Cash Required For Project</Typography>   
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.salesPrice)}</Typography>
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(cashRequired())}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
             <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6} position="end">
-                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Out - Option Payment To Seller</Typography>   
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total All-In Cost For Project</Typography>   
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.optionPayment)}</Typography>
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(cashRequired())}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
             <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                 <Grid container >
                     <Grid item xs={6} position="end">
-                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Out - Monthly Rent To Seller</Typography>   
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Buyer Sales Price</Typography>   
                     </Grid>
                     <Grid item xs={6}>    
-                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.monthlyRental)}</Typography>
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.salesPrice)}</Typography>
                     </Grid>
                 </Grid>
             </FormControl>
-              <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Buyer Down Payment</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.optionPayment)}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6} position="end">
+                        <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Buyer Sales Price</Typography>   
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(parseFloat(sellerFormState.salesPrice) - parseFloat(sellerFormState.optionPayment))}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                   <Grid container >
                       <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>In - Monthly Credits From Seller</Typography>   
-                      </Grid>
-                      <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(formData.monthlyCredit)}</Typography>
-                      </Grid>
-                  </Grid>
-              </FormControl>
-              <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
-                  <Grid container >
-                      <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>In - Buyer to Us Sales Price</Typography>   
-                      </Grid>
-                      <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.salesPrice)}</Typography>
-                      </Grid>
-                  </Grid>
-              </FormControl>
-              <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
-                  <Grid container >
-                      <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>In - Option Payment from Buyer</Typography>   
-                      </Grid>
-                      <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.optionPayment)}</Typography>
-                      </Grid>
-                  </Grid>
-              </FormControl>
-              <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
-                  <Grid container >
-                      <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>In - Monthly Rent from Buyer</Typography>   
+                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Monthly Rent from Buyer</Typography>   
                       </Grid>
                       <Grid item xs={6}>    
                           <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.monthlyRental)}</Typography>
+                      </Grid>
+                  </Grid>
+              </FormControl>
+              <FormControl fullWidth sx={{ marginBottom: 0 }}>
+                <Grid container >
+                    <Grid item xs={6}>
+                        <Typography className="analysis-typography" align="left" variant="h6" sx={{ marginBottom: 2 }}>Monthly Insurance, Taxes, & HOA</Typography>
+                    </Grid>
+                    <Grid item xs={6}>    
+                        <Typography className="analysis-typography" align="right" variant="h6" sx={{ marginBottom: 2 }}>{formatDollarValue((parseFloat(formData.propertyInsurance) + parseFloat(formData.propertyTax) + parseFloat(formData.hoa)))}</Typography>
+                    </Grid>
+                </Grid>
+            </FormControl>
+            <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
+                  <Grid container >
+                      <Grid item xs={6} position="end">
+                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Monthly Cash Flow Received</Typography>   
+                      </Grid>
+                      <Grid item xs={6}>    
+                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.monthlyRental - (parseFloat(formData.propertyInsurance) + parseFloat(formData.propertyTax) + parseFloat(formData.hoa)))}</Typography>
                       </Grid>
                   </Grid>
               </FormControl>
@@ -219,6 +265,13 @@ function SellLeaseOptionForm({ formData }) {
                       </Grid>
                   </Grid>
               </FormControl>
+            
+              
+
+
+            <hr />
+
+             
 
               {/* Subheading */}
               <Typography variant="h4" fontWeight="bold" sx={{ marginTop: 2, marginBottom: 1 }}>
@@ -231,37 +284,28 @@ function SellLeaseOptionForm({ formData }) {
                           <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Option Payment Received</Typography>   
                       </Grid>
                       <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.optionPayment - formData.optionPayment)}</Typography>
+                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.optionPayment)}</Typography>
                       </Grid>
                   </Grid>
               </FormControl>
-              <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
-                  <Grid container >
-                      <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Monthly Cash Flow Received</Typography>   
-                      </Grid>
-                      <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(sellerFormState.monthlyRental - formData.monthlyRental)}</Typography>
-                      </Grid>
-                  </Grid>
-              </FormControl>
+              
               <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                   <Grid container >
                       <Grid item xs={6} position="end">
                           <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Total Cash Flow Received</Typography>   
                       </Grid>
                       <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue((sellerFormState.monthlyRental - formData.monthlyRental) * sellerFormState.optionTerm)}</Typography>
+                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue(getTotalCashFlow())}</Typography>
                       </Grid>
                   </Grid>
               </FormControl>
               <FormControl fullWidth sx={{ marginTop: 0, marginBottom: 0 }}>
                   <Grid container >
                       <Grid item xs={6} position="end">
-                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Monthly Credits Difference</Typography>   
+                          <Typography position="end" variant="h6" align="left" sx={{ marginBottom: 2 }}>Monthly Credits</Typography>   
                       </Grid>
                       <Grid item xs={6}>    
-                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue((formData.monthlyCredit - sellerFormState.monthlyCredits) * sellerFormState.optionTerm)}</Typography>
+                          <Typography position="end" variant="h6" align="right" sx={{ marginBottom: 2 }}>{formatDollarValue((sellerFormState.monthlyCredits * sellerFormState.optionTerm))}</Typography>
                       </Grid>
                   </Grid>
               </FormControl>
@@ -289,4 +333,4 @@ function SellLeaseOptionForm({ formData }) {
     )
 }
 
-export default SellLeaseOptionForm
+export default PurchaseLeaseOption

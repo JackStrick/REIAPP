@@ -98,6 +98,10 @@ function LeaseOptionForm({ formData, onChange}) {
           name='leaseTerm'
           value={formData.leaseTerm}
           onChange={handleInputChange}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">#</InputAdornment>,
+            endAdornment: <InputAdornment position="end">months</InputAdornment>,
+          }}
         />
       </FormControl>
     </Box>

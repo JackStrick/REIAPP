@@ -14,6 +14,10 @@ import SellWholesaleForm from './Forms/Sell/SellWholesaleForm';
 import SellerFinanceSellFlip from './Forms/Sell/SellerFinanceSellFlip';
 import LeaseOptionSellFlip from './Forms/Sell/LeaseOptionSellFlip';
 import LeaseOptionRent from './Forms/Sell/LeaseOptionRent';
+import SellerFinanceRent from './Forms/Sell/SellerFinanceRent';
+import PurchaseLeaseOption from './Forms/Sell/PurchaseLeaseOption';
+import SellerFinanceLeaseOption from './Forms/Sell/SellerFinanceLeaseOption';
+import SellerFinanceSellerFinance from './Forms/Sell/SellerFinanceSellerFinance';
 
 function DealStrategy() {
     
@@ -104,22 +108,28 @@ function DealStrategy() {
                     {sellStrategy === 'rent' && buyStrategy === 'purchase' && (
                         <PurchaseRentForm formData={formData}  />
                     )}
-
-
-
-
-
-
-
-
-
-                    
-                    {sellStrategy === 'lease' && buyStrategy !== null && (
+                    {sellStrategy === 'rent' && buyStrategy === 'lease' && (
+                        <LeaseOptionRent formData={formData}  />
+                    )}
+                    {sellStrategy === 'rent' && buyStrategy === 'seller' && (
+                        <SellerFinanceRent formData={formData}  />
+                    )}
+                    {sellStrategy === 'lease' && buyStrategy === 'lease' && (
                         <SellLeaseOptionForm formData={formData}  />
                     )}
-                    {sellStrategy === 'seller' && buyStrategy !== null && (
+                    {sellStrategy === 'lease' && buyStrategy === 'purchase' && (
+                        <PurchaseLeaseOption formData={formData}  />
+                    )}
+                    {sellStrategy === 'lease' && buyStrategy === 'seller' && (
+                        <SellerFinanceLeaseOption formData={formData}  />
+                    )}
+                    {sellStrategy === 'seller' && buyStrategy === 'purchase' && (
                         <SellSellerFinanceForm formData={formData}  />
                     )}
+                    {sellStrategy === 'seller' && buyStrategy === 'seller' && (
+                        <SellerFinanceSellerFinance formData={formData}  />
+                    )}
+                    
 
                 
                 </Grid>
