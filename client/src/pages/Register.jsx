@@ -9,13 +9,15 @@ import AlertPop from '../components/Misc/AlertPop'
 
 function Register() {
     const [formData, setFormData] = useState({
-        name: '',
+        fname: '',
+        lname: '',
         email: '',
+        phone: '',
         password: '',
         password2: '',    
     })
 
-    const { name, email, password, password2 } = formData
+    const { fname, lname, email, phone, password, password2 } = formData
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -57,17 +59,19 @@ function Register() {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        /*if(password !== password2){
+        if(password !== password2){
             toast.error('Passwords do not match')
         } else {
             const userData = {
-                name, 
-                email, 
+                fname,
+                lname, 
+                email,
+                phone, 
                 password,
             }
             dispatch(register(userData))
-        }*/
-        toast.error('New user registration is currently not allowed for public access.')        
+        }
+        //toast.error('New user registration is currently not allowed for public access.')        
     }
   
     if(isLoading) {
@@ -81,7 +85,7 @@ function Register() {
                 <FaUser /> Register
             </h1>
             <p>Please create an account</p>
-            <AlertPop open={true} linkTo={`/login`} buttonText={"Login"} title={"Unauthorized"} desc={"New user registration is currently not allowed for public access."}/>
+            {/*<AlertPop open={true} linkTo={`/login`} buttonText={"Login"} title={"Unauthorized"} desc={"New user registration is currently not allowed for public access."}/>*/}
 
         </section>
 
@@ -91,10 +95,21 @@ function Register() {
                     <input
                         type='text'
                         className='form-control'
-                        id='name'
-                        name='name'
-                        value={name}
-                        placeholder='Enter your name'
+                        id='fname'
+                        name='fname'
+                        value={fname}
+                        placeholder='Enter your first name'
+                        onChange={onChange} 
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        type='text'
+                        className='form-control'
+                        id='lname'
+                        name='lname'
+                        value={lname}
+                        placeholder='Enter your last name'
                         onChange={onChange} 
                     />
                 </div>
@@ -106,6 +121,17 @@ function Register() {
                         name='email'
                         value={email}
                         placeholder='Enter your email'
+                        onChange={onChange} 
+                    />
+                </div>
+                <div className="form-group">
+                    <input
+                        type='phone'
+                        className='form-control'
+                        id='phone'
+                        name='phone'
+                        value={phone}
+                        placeholder='Enter your phone number'
                         onChange={onChange} 
                     />
                 </div>

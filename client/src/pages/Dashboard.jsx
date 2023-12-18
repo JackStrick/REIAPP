@@ -12,7 +12,8 @@ import { TbTargetArrow } from "react-icons/tb";
 import GavelIcon from '@mui/icons-material/Gavel';
 import SailingIcon from '@mui/icons-material/Sailing';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import PropTableHome from '../components/MultiProperty/PropTableHome'
+import PropTableHome from '../components/MultiProperty/PropTableHome';
+import AlertPop from '../components/Misc/AlertPop';
 
 
 function Dashboard() {
@@ -131,7 +132,7 @@ function Dashboard() {
           />
           {/*ROW 2*/}
           <Box
-            gridColumn="span 8"
+            gridColumn="span 12"
             gridRow="span 3"
           >
          
@@ -139,7 +140,9 @@ function Dashboard() {
               <Typography variant="h3" fontWeight="bold" sx={{ mb: "5px" }} gutterBottom >Favorite Properties</Typography>
               <Button size="medium" variant="contained" onClick={handlePropViewClick}>View All</Button>
             </FlexBetween>
-            <PropTableHome properties={properties.slice(0,5)} />
+            <PropTableHome properties={properties.slice(0,5)} /> 
+            {properties.length === 0 && <AlertPop open={true} linkTo={`/leadfind`} buttonText={"Find Leads"} title={"No Properties Added"} desc={"Add properties to your favorites list to find deals"} /> }
+            
 
           </Box>
       </Box>

@@ -34,7 +34,7 @@ function Profile() {
   return (
     <Box m="1.5rem 2.5rem">
 
-      <PageHeader title="Profile" subtitle="View and edit your profile" />
+      <PageHeader title="Profile" subtitle="View your profile" />
       <Box
       component="main"
       sx={{

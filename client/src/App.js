@@ -40,8 +40,6 @@ function App() {
                   <Route path='/properties' element={<Properties />} />
                   <Route path='/properties/:propertyId' element={<SingleProperty />} />
                   <Route path='/profile' element={<Profile />} />
-                  <Route path='/messages' element={<Dashboard />} />
-                  <Route path='/settings' element={<Settings />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />

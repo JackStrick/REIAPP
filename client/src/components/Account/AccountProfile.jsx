@@ -8,17 +8,16 @@ import {
     Divider,
     Typography
   } from '@mui/material';
+  import { useSelector } from 'react-redux';
 import ProfileImage from '../../assets/ProfileImage.jpeg';
+import Duck from '../../assets/Duck.jpeg';
  
-  const user = {
-    avatar: ProfileImage,
-    city: 'New York',
-    country: 'USA',
-    jobTitle: 'Head of Product',
-    name: 'Jack Strickland',
-  };
   
-const AccountProfile = () => (
+const AccountProfile = () => {
+
+    const { user } = useSelector((state) => state.auth);
+
+    return (
     <Card>
         <CardContent>
             <Box
@@ -29,7 +28,7 @@ const AccountProfile = () => (
             }}
             >
             <Avatar
-                src={user.avatar}
+                src={user.fname !== 'Victor' ? ProfileImage : Duck}
                 sx={{
                 height: 80,
                 mb: 2,
@@ -40,32 +39,26 @@ const AccountProfile = () => (
                 gutterBottom
                 variant="h5"
             >
-                {user.name}
+                {user.fname} {user.lname}
             </Typography>
             <Typography
                 color="text.secondary"
                 variant="body2"
             >
-                {user.city} {user.country}
+                Ramapo NJ
             </Typography>
             <Typography
                 color="text.secondary"
                 variant="body2"
             >
-                {user.timezone}
+                {user.fname !== 'Victor' ? "Real Estate Investor" : "Professor"}
             </Typography>
             </Box>
         </CardContent>
         <Divider />
-        <CardActions>
-            <Button
-            fullWidth
-            variant="text"
-            >
-            Upload picture
-            </Button>
-        </CardActions>
+        
     </Card>
-);
+    );
+};
 
 export default AccountProfile;

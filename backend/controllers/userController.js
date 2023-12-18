@@ -8,12 +8,15 @@ const jwt = require('jsonwebtoken')
 // @route POST /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
-    const name = req.body.name.trim()
+    const fname = req.body.fname.trim()
+    const lname = req.body.lname.trim()
     const email = req.body.email.trim()
     const password = req.body.password.trim()
+    const phone = req.body.phone.trim()
+    
     
 
-    if(!name || !email || !password) {
+    if(!fname || !lname || !email || !password) {
         throw new Error('Please add all fields')
     }
 
@@ -21,7 +24,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const userExists = await User.findOne({email})
     if (userExists){
         res.status(400)
-        throw new Error('User already exists')
+        throw new Error('User already exists with that email')
     }
 
     // Hash pass
@@ -30,15 +33,19 @@ const registerUser = asyncHandler(async (req, res) => {
 
     //Create user
     const user = await User.create({
-        name,
+        fname,
+        lname,
         email,
+        phone,
         password: hashedPass
     })
 
     if (user) {
         res.status(201).json({
             _id: user.id,
-            name: user.name,
+            fname: user.fname,
+            lname: user.lname,
+            phone: user.phone,
             email: user.email,
             token: generateToken(user._id)
         })
@@ -66,8 +73,10 @@ const loginUser = asyncHandler(async (req, res) => {
     if(user && (await bcrypt.compare(password, user.password))){
         res.json({
             _id: user.id,
-            name: user.name,
+            fname: user.fname,
+            lname: user.lname,
             email: user.email,
+            phone: user.phone,
             token: generateToken(user._id)
         })
     } else {

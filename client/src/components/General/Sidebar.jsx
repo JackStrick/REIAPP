@@ -11,7 +11,7 @@ import { ChevronLeft, ChevronRightOutlined } from '@mui/icons-material';
 import logoA from "../../assets/Core_logo.png"
 import logoB from "../../assets/CoreIconHeaderLogoTransparent.png"
 
-const navItems = [
+/*const navItems = [
   {
       text: "Dashboard",
       icon: <RiDashboardFill />
@@ -45,9 +45,33 @@ const navItems = [
       text: "Settings",
       icon: <FaCog />
   },  
+]*/
+
+const navItems = [
+  {
+      text: "Dashboard",
+      icon: <RiDashboardFill />
+  },
+
+  {
+      text: "LeadFind",
+      icon: <TbTargetArrow />
+  },
+
+  {
+      text: "DealMe",
+      icon: <FaDollarSign />
+  },
+  {
+      text: "Properties",
+      icon: <FaHome />
+  },
+
+  {
+      text: "Profile",
+      icon: <FaUser />
+  },
 ]
-
-
 
 
 
@@ -160,7 +184,7 @@ const Sidebar = ({
                                             active === lcText 
                                                 ? theme.palette.primary[600] 
                                                 : theme.palette.secondary[100],
-                                        marginLeft: isSidebarOpen ? "2rem" : "1rem",
+                                        marginLeft: isSidebarOpen ? "1rem" : "0rem",
                                         alignItems: isSidebarOpen ? 'center' : '',
                                     }}
                                     >

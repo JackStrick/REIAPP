@@ -1,11 +1,12 @@
 import {useState} from 'react'
 import { LightModeOutlined, DarkModeOutlined, Menu as MenuIcon, Search, SettingsOutlined, ArrowDropDownOutlined } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from '../Misc/FlexBetween';
 import { AppBar, Button, Box, Typography, IconButton, InputBase, Toolbar, Menu, MenuItem, useTheme, Icon } from "@mui/material";
 import { logout, reset } from '../../features/auth/authSlice'
 import { Link, useNavigate } from 'react-router-dom'
 import profileImage from '../../assets/ProfileImage.jpeg';
+import Duck from '../../assets/Duck.jpeg';
 import { setMode } from "../../features/mode/modeSlice";
 
 
@@ -16,6 +17,8 @@ const Navbar = ({
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const theme = useTheme();
+
+    const {user} = useSelector((state) => state.auth)
 
     const [anchorEl, setAnchorEl] = useState(null);
     const isOpen = Boolean(anchorEl);
@@ -47,10 +50,7 @@ const Navbar = ({
                     gap="3rem"
                     p="0.1rem 1.5rem"
                 >
-                    <InputBase placeholder="Search..." />
-                    <IconButton>
-                    <Search />
-                    </IconButton>
+                    
                 </FlexBetween>
             </FlexBetween>
 
@@ -64,7 +64,7 @@ const Navbar = ({
                     )}
                 </IconButton>
                 <IconButton onClick={() => {
-                    navigate(`/settings`); 
+                    navigate(`/profile`); 
                 }}>
                     <SettingsOutlined sx={{ fontSize: "25px" }} />
                 </IconButton>
@@ -83,7 +83,7 @@ const Navbar = ({
                         <Box
                             component="img"
                             alt="profile"
-                            src={profileImage}
+                            src={user.fname !== 'Victor' ? profileImage : Duck}
                             height="32px"
                             width="32px"
                             borderRadius="50%"
@@ -96,7 +96,7 @@ const Navbar = ({
                                     fontSize="0.85rem"
                                     sx={{ color: theme.palette.primary }}
                                     >
-                                        Jack Strickland{/* {user.name} */}
+                                        {user.fname} {user.lname} 
                                 </Typography>
                             ) : (
                                 <Typography
@@ -104,7 +104,7 @@ const Navbar = ({
                                     fontSize="0.85rem"
                                     sx={{ color: "#214752" }}
                                 >
-                                    Jack Strickland{/* {user.name} */}
+                                    {user.fname} {user.lname}
                                 </Typography>
                             )}
 
@@ -113,14 +113,14 @@ const Navbar = ({
                                 fontSize="0.75rem"
                                 sx={{ color: theme.palette.grey[200] }}
                                 >
-                                    Position{/* {user.occupation} */}
+                                    {user.fname !== 'Victor' ? "Real Estate Investor" : "Professor"}
                                 </Typography>
                             ) : (
                                 <Typography
                                 fontSize="0.75rem"
                                 sx={{ color: '#214752' }}
                                 >
-                                    Position{/* {user.occupation} */}
+                                    {user.fname !== 'Victor' ? "Real Estate Investor" : "Professor"}
                                 </Typography>
                             )}
                                 
