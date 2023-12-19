@@ -3,7 +3,7 @@ const { styled } = require("@mui/system");
 
 /**
  * FlexBetween component for creating a flex container with space-between alignment.
- * 
+ *
  * @component
  * @example
  * // Example usage of FlexBetween component
@@ -15,9 +15,9 @@ const { styled } = require("@mui/system");
  * @returns {JSX.Element} - Rendered FlexBetween component.
  */
 const FlexBetween = styled(Box)({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
+	display: "flex",
+	justifyContent: "space-between",
+	alignItems: "center",
 });
 
 export default FlexBetween;
