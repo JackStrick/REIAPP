@@ -10,6 +10,23 @@ import {
     useTheme,
   } from '@mui/material';
 
+/**
+ * SellerFinanceRent Component
+ *
+ * This component provides an analysis for seller financing or rental scenarios,
+ * calculating various financial metrics related to monthly operating income, vacancy percentage,
+ * monthly operating expenses, and more.
+ *
+ * @component
+ * @param {Object} formData - Data related to the property and financing/rental terms.
+ * @returns {JSX.Element} - Rendered SellerFinanceRent component.
+ *
+ * @example
+ * // Example Usage
+ * <SellerFinanceRent formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function SellerFinanceRent({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

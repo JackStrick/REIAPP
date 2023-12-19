@@ -10,6 +10,23 @@ import {
     useTheme,
   } from '@mui/material';
 
+/**
+ * LeaseOptionRent Component
+ *
+ * This component provides a rental analysis for lease option scenarios.
+ * It calculates metrics such as net operating income, cash flow, annual cash flow,
+ * and cash-on-cash return based on user-input data.
+ *
+ * @component
+ * @param {Object} formData - Data related to the lease option.
+ * @returns {JSX.Element} - Rendered LeaseOptionRent component.
+ *
+ * @example
+ * // Example Usage
+ * <LeaseOptionRent formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function LeaseOptionRent({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
@@ -214,9 +231,6 @@ function LeaseOptionRent({ formData }) {
                     </Grid>
                 </Grid>
             </FormControl>
-
-            
-
         </Box>
     )
 }

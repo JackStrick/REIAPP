@@ -10,6 +10,16 @@ import {
     useTheme,
   } from '@mui/material';
 
+/**
+ * SellLeaseOptionForm is a React component that performs financial analysis
+ * for a property sold through a lease option. It calculates various profit
+ * centers and the total net profit based on user input.
+ *
+ * @component
+ * @param {Object} props - The properties of the component.
+ * @param {Object} props.formData - The form data required for analysis.
+ * @returns {JSX.Element} SellLeaseOptionForm component.
+ */
 function SellLeaseOptionForm({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

@@ -4,7 +4,16 @@ import PublicRecord from './DetailsComponents/PublicRecord';
 import TaxInfo from './DetailsComponents/TaxInfo';
 import MortgageInfo from './DetailsComponents/MortgageInfo';
 
-
+/**
+ * PropertyDetails component for displaying details about a property.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.property - Property details.
+ * @param {Object} props.analytics - Analytics data for the property.
+ * 
+ * @returns {JSX.Element} - Rendered PropertyDetails component.
+ */
 function PropertyDetails({property, analytics}) {
     const theme = useTheme();
     const [value, setValue] = useState("public");
@@ -12,8 +21,6 @@ function PropertyDetails({property, analytics}) {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-
 
     return (
         <Box m="1.5rem 2.5rem">
@@ -46,15 +53,7 @@ function PropertyDetails({property, analytics}) {
                         
                     </Box>
                 </Box>
-
-
-
-
             </Box>
-            
-            
-
-
         </Box>
     )
 }

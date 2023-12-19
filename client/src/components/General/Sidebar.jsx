@@ -75,7 +75,15 @@ const navItems = [
 
 
 
-
+/**
+ * Sidebar component for navigation.
+ * @param {Object} props - React component properties.
+ * @param {number} props.drawerWidth - The width of the sidebar drawer.
+ * @param {boolean} props.isSidebarOpen - Whether the sidebar is open.
+ * @param {function} props.setIsSidebarOpen - Function to set the sidebar open state.
+ * @param {boolean} props.isNonMobile - Whether the device is non-mobile.
+ * @returns {JSX.Element} - Rendered Sidebar component.
+ */
 const Sidebar = ({
     drawerWidth,
     isSidebarOpen,

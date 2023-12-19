@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+/**
+* Map component to display Google Maps with markers for provided properties.
+* @param {Object[]} properties - Array of properties to display on the map.
+* @returns {JSX.Element} - Rendered Map component.
+*/
 function Map({ properties }) {
   const [googleMapLoaded, setGoogleMapLoaded] = useState(false);
   const [map, setMap] = useState(null);

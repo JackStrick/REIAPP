@@ -8,7 +8,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import PropertyPopup from '../SingleProperty/PropertyPopup'; // Import the PropertyPopup component
 import FavoriteButton from '../Misc/FavoriteButton';
 
-
+/**
+ * PropertyTable component for displaying a table of properties.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Array} props.properties - Array of properties to display.
+ * @param {string} props.name - Name of the property table.
+ * 
+ * @returns {JSX.Element} - Rendered PropertyTable component.
+ */
 function PropertyTable({ properties, name }) {
     const theme = useTheme();
     const { user } = useSelector((state) => state.auth);

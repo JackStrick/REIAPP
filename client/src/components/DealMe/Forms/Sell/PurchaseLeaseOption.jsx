@@ -10,7 +10,22 @@ import {
     useTheme,
   } from '@mui/material';
 
-
+/**
+ * PurchaseLeaseOption Component
+ *
+ * This component provides a lease option analysis, calculating various financial metrics
+ * related to the purchase of a property using a lease option strategy.
+ *
+ * @component
+ * @param {Object} formData - Data related to the lease option.
+ * @returns {JSX.Element} - Rendered PurchaseLeaseOption component.
+ *
+ * @example
+ * // Example Usage
+ * <PurchaseLeaseOption formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function PurchaseLeaseOption({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

@@ -3,6 +3,17 @@ import { Box, Typography, useTheme } from '@mui/material'
 import FlexBetween from './FlexBetween'
 import { useSelector } from 'react-redux';
 
+/**
+ * StatBox component for displaying statistics in a box format.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {string} props.title1 - The title for the first statistic.
+ * @param {string} props.title2 - The title for the second statistic.
+ * @param {string} props.value1 - The value for the first statistic.
+ * @param {string} props.value2 - The value for the second statistic.
+ * @returns {JSX.Element} - Rendered StatBox component.
+ */
 const StatBox = ({ title1, title2, value1, value2}) => {
   const theme = useTheme();
   const mode = useSelector((state) => state.mode.mode);

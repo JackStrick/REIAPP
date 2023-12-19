@@ -4,10 +4,15 @@ import StatBox from '../Misc/StatBox'
 import { useTheme } from '@emotion/react'
 import PropAnalyticsBox from '../Misc/PropAnalyticsBox'
 
-
-
-
-
+/**
+ * PropertyAnalytics component for displaying analytics information about a property.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.analytics - Analytics data to display.
+ * 
+ * @returns {JSX.Element} - Rendered PropertyAnalytics component.
+ */
 function PropertyAnalytics({analytics}) {
     const theme = useTheme();
 

@@ -1,17 +1,24 @@
 import { Box, Typography, Grid } from '@mui/material'
 import React from 'react'
 
+/**
+ * PublicRecord component for displaying public record information of a property.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.property - Property details.
+ * @param {Object} props.analytics - Property analytics data.
+ * 
+ * @returns {JSX.Element} - Rendered PublicRecord component.
+ */
 function PublicRecord({property, analytics}) {
-    
-    
+
     const formatDollarValue = (value) => {
         return value.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
         });
     };
-
-
 
     return (
         <Box>

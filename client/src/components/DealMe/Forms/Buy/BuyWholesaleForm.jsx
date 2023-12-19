@@ -12,6 +12,26 @@ import {
   useTheme,
 } from '@mui/material';
 
+/**
+ * BuyWholesaleForm Component
+ * 
+ * A React component representing a form for entering purchase assumptions,
+ * specifically tailored for wholesale buying of a property.
+ * 
+ * @component
+ * @props {Object} formData - The form data object containing purchase assumptions.
+ * @props {Function} onChange - Callback function triggered on input changes.
+ * 
+ * @description
+ * The component includes sections for basic numbers and buyer's estimated expenses.
+ * It provides input fields for various financial parameters such as ARV, repair costs,
+ * hedge expenses, closing costs, monthly holding costs, repair period, marketing costs,
+ * and selling costs.
+ * 
+ * Note: The component includes a utility function to format dollar values.
+ * 
+ * @see formatDollarValue - Utility function to format a numeric value as a currency string.
+ */
 function BuyWholesaleForm({ formData, onChange}) {
   const theme = useTheme();
 

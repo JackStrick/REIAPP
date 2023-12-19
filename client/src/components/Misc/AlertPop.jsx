@@ -6,7 +6,16 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 
 
-
+/**
+ * AlertPop component for displaying alerts.
+ * @param {Object} props - React component properties.
+ * @param {boolean} props.open - Whether the dialog is open.
+ * @param {string} props.linkTo - The link to redirect to when the button is clicked.
+ * @param {string} props.buttonText - The text to display on the button.
+ * @param {string} props.title - The title of the alert.
+ * @param {string} props.desc - The description or content of the alert.
+ * @returns {JSX.Element} - Rendered AlertPop component.
+ */
 function AlertPop({ open, linkTo, buttonText, title, desc  }) {
 
     return (

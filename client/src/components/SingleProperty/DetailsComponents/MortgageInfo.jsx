@@ -1,6 +1,16 @@
 import React from 'react'
 import { Box, Typography, Grid } from '@mui/material'
 
+/**
+ * MortgageInfo component for displaying mortgage-related information.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.property - Property details.
+ * @param {Object} props.analytics - Property analytics data.
+ * 
+ * @returns {JSX.Element} - Rendered MortgageInfo component.
+ */
 function MortgageInfo({property, analytics}) {
     
 

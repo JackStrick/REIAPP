@@ -10,6 +10,15 @@ import {
     useTheme,
   } from '@mui/material';
 
+
+/**
+ * SellWholesaleForm Component
+ * 
+ * A React component for analyzing the financial aspects of selling a property through wholesale.
+ *
+ * @param {Object} formData - Object containing form data for analysis.
+ * @returns {JSX.Element} - Rendered component.
+ */
 function SellWholesaleForm({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

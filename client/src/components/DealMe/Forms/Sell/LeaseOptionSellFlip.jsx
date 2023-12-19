@@ -10,7 +10,23 @@ import {
     useTheme,
   } from '@mui/material';
 
-
+/**
+ * LeaseOptionSellFlip Component
+ *
+ * This component provides a sell/flip analysis for lease option scenarios.
+ * It calculates metrics such as total net profit, return on investment (ROI),
+ * and cash-on-cash return based on user-input data.
+ *
+ * @component
+ * @param {Object} formData - Data related to the lease option.
+ * @returns {JSX.Element} - Rendered LeaseOptionSellFlip component.
+ *
+ * @example
+ * // Example Usage
+ * <LeaseOptionSellFlip formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function LeaseOptionSellFlip({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

@@ -19,24 +19,34 @@ import PurchaseLeaseOption from './Forms/Sell/PurchaseLeaseOption';
 import SellerFinanceLeaseOption from './Forms/Sell/SellerFinanceLeaseOption';
 import SellerFinanceSellerFinance from './Forms/Sell/SellerFinanceSellerFinance';
 
+
+/**
+ * DealStrategy component for selecting buying and selling strategies.
+ * Renders toggle buttons for choosing buying and selling strategies.
+ * Renders forms based on selected strategies.
+ * @returns {JSX.Element} - Rendered DealStrategy component.
+ */
 function DealStrategy() {
-    
+    // Local state to manage selected buying and selling strategies
     const [buyStrategy, setBuyStrategy] = React.useState(null);
     const [sellStrategy, setSellStrategy] = React.useState(null);
+    // Local state to store form data based on selected buying strategy
     const [formData, setFormData] = useState(null);
 
+    // Handle buying strategy toggle button change
     const handleBuyerToggle = (event, newAlignment) => {
         setBuyStrategy(newAlignment);
         setFormData(formsDataStructure[newAlignment]);
         setSellStrategy(null);
     };
 
+    // Handle selling strategy toggle button change
     const handleSellerToggle = (event, newAlignment) => {
         setSellStrategy(newAlignment);
     };
 
-
     const theme = useTheme();
+
     return (
         <Box sx={{marginTop: 2}}>
             <Grid container spacing={2}>
@@ -129,9 +139,6 @@ function DealStrategy() {
                     {sellStrategy === 'seller' && buyStrategy === 'seller' && (
                         <SellerFinanceSellerFinance formData={formData}  />
                     )}
-                    
-
-                
                 </Grid>
             </Grid>
         

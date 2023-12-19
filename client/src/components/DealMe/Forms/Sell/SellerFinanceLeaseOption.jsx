@@ -10,6 +10,22 @@ import {
     useTheme,
   } from '@mui/material';
 
+  /**
+ * SellerFinanceLeaseOption Component
+ *
+ * This component provides an analysis for seller financing or lease option scenarios,
+ * calculating various financial metrics related to sales price, option payment, monthly rental, etc.
+ *
+ * @component
+ * @param {Object} formData - Data related to the property and financing/lease terms.
+ * @returns {JSX.Element} - Rendered SellerFinanceLeaseOption component.
+ *
+ * @example
+ * // Example Usage
+ * <SellerFinanceLeaseOption formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function SellerFinanceLeaseOption({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
@@ -323,14 +339,7 @@ function SellerFinanceLeaseOption({ formData }) {
                       </Grid>
                   </Grid>
               </FormControl>
-            
-              
-
-
             <hr />
-
-             
-
               {/* Subheading */}
               <Typography variant="h4" fontWeight="bold" sx={{ marginTop: 2, marginBottom: 1 }}>
                 Profit Centers

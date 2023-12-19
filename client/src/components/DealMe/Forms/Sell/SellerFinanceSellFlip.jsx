@@ -11,7 +11,16 @@ import {
   } from '@mui/material';
 
 
-
+/**
+ * SellerFinanceSellFlip is a React component that performs financial analysis
+ * for a property being sold using seller financing. It calculates various metrics
+ * such as net profit, ROI, and cash on cash return based on user input.
+ *
+ * @component
+ * @param {Object} props - The properties of the component.
+ * @param {Object} props.formData - The form data required for analysis.
+ * @returns {JSX.Element} SellerFinanceSellFlip component.
+ */
 function SellerFinanceSellFlip({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({

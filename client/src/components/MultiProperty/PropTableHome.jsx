@@ -1,4 +1,3 @@
-// PropertyTable.js
 import React, { useState, useEffect } from 'react';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Button, useTheme, Typography, TableFooter, TablePagination } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +10,16 @@ import { Navigate } from 'react-router-dom';
 import Map from '../General/Map';
 
 
+/**
+ * PropertyTable component for displaying a table of properties.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Array} props.properties - Array of properties to display.
+ * @param {string} props.name - Name of the property table.
+ * 
+ * @returns {JSX.Element} - Rendered PropertyTable component.
+ */
 function PropertyTable({ properties, name }) {
     const theme = useTheme();
     const { user } = useSelector((state) => state.auth);

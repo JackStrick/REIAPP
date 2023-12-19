@@ -10,6 +10,11 @@ import {
     useTheme,
   } from '@mui/material';
 
+/**
+ * Seller Finance Analysis Form Component
+ * @param {Object} formData - Form data used in calculations
+ * @returns {JSX.Element} - Seller Finance Analysis Form component
+ */
 function SellSellerFinanceForm({ formData }) {
 
   const theme = useTheme();

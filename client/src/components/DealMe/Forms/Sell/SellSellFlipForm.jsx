@@ -10,7 +10,14 @@ import {
     useTheme,
   } from '@mui/material';
 
-
+/**
+ * SellSellFlipForm Component
+ * 
+ * A React component for analyzing the financial aspects of selling/flipping a property.
+ *
+ * @param {Object} formData - Object containing form data for analysis.
+ * @returns {JSX.Element} - Rendered component.
+ */
 function SellSellFlipForm({ formData }) {
     const theme = useTheme();
     const [sellerFormState, setSellerFormState] = React.useState({
@@ -278,8 +285,6 @@ function SellSellFlipForm({ formData }) {
                 </Grid>
             </FormControl>
 
-            
-
             <FormControl fullWidth  sx={{ marginTop: 0, marginBottom: 0, backgroundColor: '#00c02178' }}>
                 <Grid container color={"success"}>
                     <Grid item xs={4} sx={{ marginTop: 2}}>
@@ -296,9 +301,6 @@ function SellSellFlipForm({ formData }) {
                     </Grid>
                 </Grid>
             </FormControl>
-
-            
-
         </Box>
     )
 }

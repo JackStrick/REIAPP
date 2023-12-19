@@ -9,7 +9,13 @@ import profileImage from '../../assets/ProfileImage.jpeg';
 import Duck from '../../assets/Duck.jpeg';
 import { setMode } from "../../features/mode/modeSlice";
 
-
+/**
+ * Navbar component with various actions and user information.
+ * @param {Object} props - React component properties.
+ * @param {boolean} props.isSidebarOpen - Flag indicating whether the sidebar is open.
+ * @param {function} props.setIsSidebarOpen - Function to toggle the sidebar.
+ * @returns {JSX.Element} - Rendered Navbar component.
+ */
 const Navbar = ({
     isSidebarOpen,
     setIsSidebarOpen,
@@ -25,6 +31,9 @@ const Navbar = ({
     const handleClick = (event) => setAnchorEl(event.currentTarget);
     const handleClose = () => setAnchorEl(null);
 
+    /**
+    * Handle logout action.
+    */
     const onLogout = () => {
         dispatch(logout())
         dispatch(reset())

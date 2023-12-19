@@ -10,6 +10,21 @@ import {
     useTheme,
   } from '@mui/material';
 
+
+  /**
+ * SellerFinanceSellerFinance Component
+ * 
+ * Description:
+ * This component handles the financial analysis and calculations for buying a property
+ * through seller financing and subsequently selling that property using seller financing.
+ * It provides a detailed analysis of various financial aspects including loan details,
+ * costs, profits, return on investment (ROI), and cash on cash returns.
+ * 
+ * Props:
+ * @param {Object} formData - The form data object containing purchase assumptions for buy side Seller Financing
+ * 
+ * @returns {JSX.Element} React component for Seller Finance Analysis.
+ */
 function SellerFinanceSellerFinance({ formData }) {
 
     const theme = useTheme();
@@ -132,7 +147,6 @@ function SellerFinanceSellerFinance({ formData }) {
     return final;
 
     };
-
 
 
     return (

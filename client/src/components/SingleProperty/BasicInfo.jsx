@@ -8,7 +8,15 @@ import { Box, Typography, Chip, useTheme } from '@mui/material'
 import StatBox from '../Misc/StatBox'
 import FavoriteButton from '../Misc/FavoriteButton'
 
-
+/**
+ * BasicInfo component for displaying basic information about a property.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.property - Property data to display.
+ * 
+ * @returns {JSX.Element} - Rendered BasicInfo component.
+ */
 function BasicInfo({property}) {
     const theme = useTheme();
     const { user } = useSelector((state) => state.auth);

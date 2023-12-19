@@ -6,8 +6,19 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Map from '../General/Map';
 
-import { useEffect, useState } from 'react';
 
+
+/**
+ * PropertyPopup component for displaying property details in a popup dialog.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {boolean} props.open - Whether the dialog is open.
+ * @param {Function} props.onClose - Callback function to close the dialog.
+ * @param {Object} props.property - Property details.
+ * 
+ * @returns {JSX.Element} - Rendered PropertyPopup component.
+ */
 function PropertyPopup({ open, onClose, property }) {
   
 
@@ -69,47 +80,3 @@ function PropertyPopup({ open, onClose, property }) {
 }
 
 export default PropertyPopup;
-
-
-
-{/* <Dialog open={isDialogOpen} onClose={closeDialog}
-PaperProps={{
-    style: {
-      maxWidth: '800px', // Adjust the width as needed
-      margin: '16px',    // Adjust the margin as needed
-    },
-  }}>
-        {property && (
-          <>
-            <DialogTitle>Property Details</DialogTitle>
-            <DialogContent>
-              {/* Render property details here 
-              <div>
-                <strong>Property Type:</strong> {property.PropertyType}
-              </div>
-              <div>
-                <strong>Address:</strong>{' '}
-                {`${property.PropertyAddress}, ${property.City}, ${property.State} ${property.ZipCode}`}
-              </div>
-              <div>
-                <strong>Bedrooms:</strong> {property.Bedroom}
-              </div>
-              <div>
-                <strong>Bathrooms:</strong> {property.Bathroom}
-              </div>
-              <div>
-                <strong>Latest Sale Price:</strong>{' '}
-                {formatDollarValue(property.LatestSalePrice)}
-              </div>
-              <div>
-                <strong>Latest Sale Date:</strong> {property.LatestSaleDate}
-              </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeDialog} color="primary">
-                Close
-              </Button>
-            </DialogActions>
-          </>
-        )}
-      </Dialog> */}

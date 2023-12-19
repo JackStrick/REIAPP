@@ -12,6 +12,16 @@ import {
   useTheme,
 } from '@mui/material';
 
+/**
+ * LeaseOptionForm Component
+ * 
+ * A React component representing a form for entering purchase assumptions
+ * related to a lease option.
+ * 
+ * @component
+ * @props {Object} formData - The form data object containing purchase assumptions.
+ * @props {Function} onChange - Callback function triggered on input changes.
+*/
 function LeaseOptionForm({ formData, onChange}) {
   const theme = useTheme();
 

@@ -1,6 +1,16 @@
 import { Box, Typography, Grid } from '@mui/material'
 import React from 'react'
 
+/**
+ * TaxInfo component for displaying tax information of a property.
+ * 
+ * @component
+ * @param {Object} props - React component properties.
+ * @param {Object} props.property - Property details.
+ * @param {Object} props.analytics - Property analytics data.
+ * 
+ * @returns {JSX.Element} - Rendered TaxInfo component.
+ */
 function TaxInfo({property, analytics}) {
     
     const getCurrentYear = () => {

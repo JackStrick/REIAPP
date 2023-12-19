@@ -13,6 +13,16 @@ import {
   useTheme,
 } from '@mui/material';
 
+/**
+ * BuyPurchaseForm Component
+ * 
+ * A React component representing a form for entering purchase assumptions
+ * related to buying a property.
+ * 
+ * @component
+ * @props {Object} formData - The form data object containing purchase assumptions.
+ * @props {Function} onChange - Callback function triggered on input changes.
+ */
 function BuyPurchaseForm({ formData, onChange}) {
   const theme = useTheme();
 

@@ -13,6 +13,26 @@ import {
   useTheme,
 } from '@mui/material';
 
+/**
+ * BuySellerFinanceForm Component
+ * 
+ * A React component representing a form for entering purchase assumptions,
+ * including financing details related to buying a property with seller financing.
+ * 
+ * @component
+ * @props {Object} formData - The form data object containing purchase and financing assumptions.
+ * @props {Function} onChange - Callback function triggered on input changes.
+ * 
+ * @description
+ * The component includes sections for basic numbers, repair costs, other costs, and financing details.
+ * It provides input fields for various financial parameters such as ARV, purchase price, repair costs,
+ * monthly expenses, and seller financing details like loan amount, down payment, interest rate, etc.
+ * 
+ * Note: The component includes utility functions to format dollar values and calculate loan monthly payments.
+ * 
+ * @see formatDollarValue - Utility function to format a numeric value as a currency string.
+ * @see getLoanPayment - Utility function to calculate the monthly loan payment based on financing details.
+ */
 function BuySellerFinanceForm({ formData, onChange}) {
   const theme = useTheme();
 

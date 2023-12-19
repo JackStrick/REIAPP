@@ -10,6 +10,22 @@ import {
     useTheme,
   } from '@mui/material';
 
+/**
+ * PurchaseRentForm Component
+ *
+ * This component provides a rental property analysis, calculating various financial metrics
+ * related to the monthly operating income, expenses, and overall cash flow.
+ *
+ * @component
+ * @param {Object} formData - Data related to the rental property.
+ * @returns {JSX.Element} - Rendered PurchaseRentForm component.
+ *
+ * @example
+ * // Example Usage
+ * <PurchaseRentForm formData={formData} />
+ *
+ * @note Ensure that the formData object contains the necessary properties for calculations.
+ */
 function PurchaseRentForm({ formData }) {
   const theme = useTheme();
   const [sellerFormState, setSellerFormState] = React.useState({
@@ -246,9 +262,6 @@ function PurchaseRentForm({ formData }) {
                   </Grid>
               </Grid>
           </FormControl>
-
-          
-
       </Box>
   )
 }
