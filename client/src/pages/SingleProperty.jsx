@@ -8,6 +8,12 @@ import PropertyDetails from '../components/SingleProperty/PropertyDetails';
 import { Box, Button, useMediaQuery, Typography, Card } from '@mui/material'
 import Spinner from '../components/Misc/Spinner';
 
+/**
+ * SingleProperty component for displaying details of a single property.
+ * Fetches property information and analytics using Redux actions.
+ * Renders BasicInfo, PropertyAnalytics, and PropertyDetails components.
+ * @returns {JSX.Element} - Rendered SingleProperty component.
+ */
 function SingleProperty() {
     const { user } = useSelector((state) => state.auth);
     const { propertyId } = useParams();
@@ -15,6 +21,7 @@ function SingleProperty() {
     const [property, setProperty] = useState(null);
     const [analytics, setAnalytics] = useState(null);
 
+    // Fetch property information and analytics on component mount
     useEffect(() => {
         const getPropertyInfo = async () => {
             const propData = await dispatch(fetchPropertyById(propertyId));
@@ -32,6 +39,7 @@ function SingleProperty() {
 
     }, [user, propertyId, dispatch])
 
+    // Render a loading spinner if property or analytics data is not available
     if (!property || !analytics) {
         return (
             <Spinner />
@@ -48,17 +56,8 @@ function SingleProperty() {
             </Card>
             <Card sx={{marginTop: 3}} variant='outlined'>
                 <PropertyDetails property={property} analytics={analytics}/>
-            </Card>
-
-           
-            
-            
-            
-
-            
-        </Box>
-        
-        
+            </Card>          
+        </Box>        
     )
 }
 

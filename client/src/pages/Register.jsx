@@ -7,7 +7,14 @@ import {register, reset} from '../features/auth/authSlice'
 import Spinner from '../components/Misc/Spinner'
 import AlertPop from '../components/Misc/AlertPop'
 
+/**
+ * Register component for user registration.
+ * Allows users to create a new account by providing required information.
+ * Validates form fields and displays error messages accordingly.
+ * @returns {JSX.Element} - Rendered Register component.
+ */
 function Register() {
+    // Local state to store form data
     const [formData, setFormData] = useState({
         fname: '',
         lname: '',
@@ -18,16 +25,18 @@ function Register() {
     })
 
     const { fname, lname, email, phone, password, password2 } = formData
+    
+    // Hook to navigate to different routes
+    const navigate = useNavigate();
+    // Redux dispatch function
+    const dispatch = useDispatch();
 
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-
-    const {user, isLoading, isError, isSuccess, message} = useSelector
-    (
+    // Get user authentication state from Redux store
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
-    )
+    );
 
-
+    // Redirect to the home page if the user is already authenticated
     useEffect(() => {
         if(user){
           navigate('/')
@@ -72,13 +81,14 @@ function Register() {
             }
             dispatch(register(userData))
         }
-        //toast.error('New user registration is currently not allowed for public access.')        
+        toast.error('New user registration is currently not allowed for public access.')        
     }
   
     if(isLoading) {
         return <Spinner/>
     }
-  
+    
+    // Render the Register component
     return (
         <>
         <section className='heading-auth'>

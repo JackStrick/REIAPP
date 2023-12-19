@@ -15,22 +15,28 @@ import AccountProfile from '../components/Account/AccountProfile';
 import AccountDetails from '../components/Account/AccountDetails';
 
 
-
+/**
+ * Profile component for displaying user profile information.
+ * Users can view their profile details and make updates.
+ * @returns {JSX.Element} - Rendered Profile component.
+ */
 function Profile() {
-  const navigate = useNavigate()
-  
-  const {user} = useSelector((state) => state.auth)
+  // Hook to navigate to different routes
+  const navigate = useNavigate();
+  // Get user data from Redux store
+  const { user } = useSelector((state) => state.auth);
 
+  // Redirect to login page if user is not authenticated
   useEffect(() => {
-    if(!user){
-      navigate('/login')
+    if (!user) {
+      navigate('/login');
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
+  // Check if the screen size is non-mobile
+  const isNonMobile = useMediaQuery('(min-width:1000px)');
 
-  const isNonMobile = useMediaQuery("(min-width:1000px)")
-
-
+  // Render the Profile component
   return (
     <Box m="1.5rem 2.5rem">
 

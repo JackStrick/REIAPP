@@ -12,9 +12,14 @@ import {
 import ProfileImage from '../../assets/ProfileImage.jpeg';
 import Duck from '../../assets/Duck.jpeg';
  
+/**
+ * Functional component representing the account profile info.
+ * @returns {JSX.Element} The rendered component.
+ */
   
 const AccountProfile = () => {
-
+    
+    // Get user data from Redux store
     const { user } = useSelector((state) => state.auth);
 
     return (

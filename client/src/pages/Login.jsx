@@ -6,63 +6,76 @@ import { login, reset } from '../features/auth/authSlice'
 import Spinner from '../components/Misc/Spinner'
 import { FaSignInAlt } from 'react-icons/fa'
 
-function Login() {
 
+/**
+ * Login component for user authentication.
+ * Allows users to enter their email and password to log in.
+ * @returns {JSX.Element} - Rendered Login component.
+ */
+function Login() {
+    // Local state to store user input (email and password)
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-    })
+    });
 
-    const { email, password } = formData
-    
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const { email, password } = formData;
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector
-    (
+    // Hook to navigate to different routes
+    const navigate = useNavigate();
+    // Redux dispatch function
+    const dispatch = useDispatch();
+
+    // Get user authentication state from Redux store
+    const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
-    )
+    );
 
+    // Redirect to home page if the user is already authenticated
     useEffect(() => {
-        if(user){
-          navigate('/')
+        if (user) {
+        navigate('/');
         }
-      }, [user, navigate])
+    }, [user, navigate]);
 
+    // Display error message if authentication fails, and reset the state
     useEffect(() => {
-        if(isError){
-            toast.error(message)
+        if (isError) {
+        toast.error(message);
         }
 
-        if(isSuccess || user) {
-            navigate('/')
+        if (isSuccess || user) {
+        navigate('/');
         }
 
-        dispatch(reset())
+        dispatch(reset());
+    }, [user, isError, isSuccess, message, navigate, dispatch]);
 
-    }, [user, isError, isSuccess, message, navigate, dispatch])
-
+    // Handle input change
     const onChange = (e) => {
         setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }))
-    }
+        ...prevState,
+        [e.target.name]: e.target.value,
+        }));
+    };
 
+    // Handle form submission for user login
     const onSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const userData = {
-            email,
-            password
-        }
-        dispatch(login(userData))
-    }
-  
-    if(isLoading){
-        return <Spinner />
+        email,
+        password,
+        };
+        dispatch(login(userData));
+    };
+
+    // Display loading spinner while authentication is in progress
+    if (isLoading) {
+        return <Spinner />;
     }
 
+    // Render the Login component
     return (
         <>
             <section className='heading-auth'>

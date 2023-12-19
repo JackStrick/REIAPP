@@ -8,7 +8,11 @@ import AlertPop from '../components/Misc/AlertPop';
 import BasicInfo from '../components/SingleProperty/BasicInfo';
 import DealStrategy from '../components/DealMe/DealStrategy';
 
-
+/**
+ * DealMe component for analyzing whether a lead is a good deal.
+ * Allows users to select a property and view its basic information and deal strategy.
+ * @returns {JSX.Element} - Rendered DealMe component.
+ */
 function Dealme() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -16,11 +20,12 @@ function Dealme() {
   const [userProperties, setUserProperties] = useState([]);
   const [property, setProperty] = useState(null);
 
+  // Handle property selection change
   const handleChange = (event) => {
     setProperty(event.target.value);
   };
 
-
+  // Ensure user is authenticated, otherwise redirect to login
   useEffect(() => {
     if(!user){
       navigate('/login')
@@ -28,7 +33,7 @@ function Dealme() {
   }, [user, navigate])
 
   
-
+  // Fetch user properties when the user is available
   useEffect(() => {
       const getUserProperties = async () => {
           const response = await dispatch(fetchUserProperties(user._id));
@@ -65,7 +70,6 @@ function Dealme() {
             :
               <AlertPop open={true} linkTo={`/leadfind`} buttonText={"Find Leads"} title={"No Properties Added"} desc={"Add properties to your favorites list to find deals"} /> 
           }
-
           {userProperties.length > 0 && property ? (
             <Box>
                 <BasicInfo property={property} />
@@ -74,15 +78,7 @@ function Dealme() {
 
                 <DealStrategy property={property} />
             </Box>
-            
-            
-          
-            
-
           ) : null }
-
-
-
         </Box>
       </Card>
 

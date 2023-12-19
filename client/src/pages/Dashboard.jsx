@@ -16,23 +16,32 @@ import PropTableHome from '../components/MultiProperty/PropTableHome';
 import AlertPop from '../components/Misc/AlertPop';
 
 
+/**
+ * Dashboard component displaying user statistics, property map, and favorite properties.
+ * @returns {JSX.Element} - Rendered Dashboard component.
+ */
 function Dashboard() {
-  const navigate = useNavigate()
-  const {user} = useSelector((state) => state.auth)
-  
+  // Hook to navigate to different routes
+  const navigate = useNavigate();
+  // Get user data from Redux store
+  const { user } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if(!user){
-      navigate('/login')
-    }
-  }, [user, navigate])
-
+  // Hook to access MUI theme
   const theme = useTheme();
+  // Check for screen size
   const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
-  //const fetchedProperties = useSelector((state) => state.db.properties);
-  const [properties, setProperties] = useState([]); // State to store properties
+
+  // Local state to store user properties
+  const [properties, setProperties] = useState([]);
+  // Redux dispatch function
   const dispatch = useDispatch();
-  console.log(properties)
+
+  // Ensure user is authenticated, otherwise redirect to login
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
   
   useEffect(() => {
     if (user) {

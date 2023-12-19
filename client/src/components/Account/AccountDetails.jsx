@@ -12,37 +12,23 @@ import {
   Unstable_Grid2 as Grid
 } from '@mui/material';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  },
-  {
-    value: 'los-angeles',
-    label: 'Los Angeles'
-  }
-];
+/**
+ * Functional component representing the account details form.
+ * @returns {JSX.Element} The rendered component.
+ */
 
 const AccountDetails = () => {
   const [values, setValues] = useState({
-    firstName: 'Jack',
-    lastName: 'Strickland',
-    email: 'jstrickl@ramapo.edu',
+    firstName: '',
+    lastName: '',
+    email: '',
     phone: '',
-    state: 'new-york',
-    country: 'USA'
   });
 
+  // Get user data from Redux store
   const {user} = useSelector((state) => state.auth);
 
+  // State to manage form values
   const handleChange = useCallback(
     (event) => {
       setValues((prevState) => ({

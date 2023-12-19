@@ -1,6 +1,13 @@
 import { Typography, Box, useTheme } from "@mui/material";
 import React from "react";
 
+/**
+ * Custom card header component with title and subtitle.
+ * @param {Object} props - Component properties.
+ * @param {Object} props.title - Title information containing PropertyAddress, City, State, and ZipCode.
+ * @param {string} props.subtitle - Subtitle text.
+ * @returns {JSX.Element} - Rendered CardHeader component.
+ */
 const CardHeader = ({ title, subtitle}) => {
     const theme = useTheme();
     return (
