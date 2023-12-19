@@ -7,23 +7,10 @@ import {
 	TableCell,
 	TableBody,
 	Paper,
-	Button,
-	useTheme,
 	Typography,
-	TableFooter,
-	TablePagination,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import {
-	fetchUserProperties,
-	deleteUserProperty,
-	createUserProperty,
-} from "../../features/api/dbSlice";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PropertyPopup from "../SingleProperty/PropertyPopup"; // Import the PropertyPopup component
-import FavoriteButton from "../Misc/FavoriteButton";
-import { Navigate } from "react-router-dom";
+import { fetchUserProperties } from "../../features/api/dbSlice";
 import Map from "../General/Map";
 
 /**
@@ -37,7 +24,6 @@ import Map from "../General/Map";
  * @returns {JSX.Element} - Rendered PropertyTable component.
  */
 function PropertyTable({ properties, name }) {
-	const theme = useTheme();
 	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const [selectedProperty, setSelectedProperty] = useState(null);
@@ -54,10 +40,6 @@ function PropertyTable({ properties, name }) {
 			getUserProperties();
 		}
 	}, [user, dispatch]);
-
-	const handleViewClick = (property) => {
-		//setSelectedProperty(property);
-	};
 
 	const handleRowClick = (property) => {
 		window.location.href = `/properties/${property._id}`;

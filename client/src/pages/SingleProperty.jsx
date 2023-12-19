@@ -8,7 +8,7 @@ import {
 import PropertyAnalytics from "../components/SingleProperty/PropertyAnalytics";
 import BasicInfo from "../components/SingleProperty/BasicInfo";
 import PropertyDetails from "../components/SingleProperty/PropertyDetails";
-import { Box, Button, useMediaQuery, Typography, Card } from "@mui/material";
+import { Box, Card } from "@mui/material";
 import Spinner from "../components/Misc/Spinner";
 
 /**

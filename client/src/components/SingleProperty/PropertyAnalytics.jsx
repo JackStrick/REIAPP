@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Typography, Chip } from "@mui/material";
-import StatBox from "../Misc/StatBox";
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import PropAnalyticsBox from "../Misc/PropAnalyticsBox";
 

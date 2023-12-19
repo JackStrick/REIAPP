@@ -11,8 +11,6 @@ import {
 	Button,
 	useTheme,
 	Typography,
-	TableFooter,
-	TablePagination,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -20,8 +18,6 @@ import {
 	deleteUserProperty,
 	createUserProperty,
 } from "../../features/api/dbSlice";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import PropertyPopup from "../SingleProperty/PropertyPopup"; // Import the PropertyPopup component
 import FavoriteButton from "../Misc/FavoriteButton";
 

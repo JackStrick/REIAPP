@@ -5,10 +5,9 @@ import {
 	deleteUserProperty,
 	createUserProperty,
 } from "../../features/api/dbSlice";
-import PageHeader from "../General/PageHeader";
 import CardHeader from "../General/CardHeader";
 import Map from "../General/Map";
-import { Box, Typography, Chip, useTheme } from "@mui/material";
+import { Box, Typography, Chip } from "@mui/material";
 import StatBox from "../Misc/StatBox";
 import FavoriteButton from "../Misc/FavoriteButton";
 
@@ -22,7 +21,6 @@ import FavoriteButton from "../Misc/FavoriteButton";
  * @returns {JSX.Element} - Rendered BasicInfo component.
  */
 function BasicInfo({ property }) {
-	const theme = useTheme();
 	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const [userProperties, setUserProperties] = useState([]);

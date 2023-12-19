@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import { register, reset } from "../features/auth/authSlice";
 import Spinner from "../components/Misc/Spinner";
-import AlertPop from "../components/Misc/AlertPop";
 
 /**
  * Register component for user registration.

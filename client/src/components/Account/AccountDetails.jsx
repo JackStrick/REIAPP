@@ -2,9 +2,7 @@ import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import {
 	Box,
-	Button,
 	Card,
-	CardActions,
 	CardContent,
 	CardHeader,
 	Divider,
@@ -18,13 +16,6 @@ import {
  */
 
 const AccountDetails = () => {
-	const [values, setValues] = useState({
-		firstName: "",
-		lastName: "",
-		email: "",
-		phone: "",
-	});
-
 	// Get user data from Redux store
 	const { user } = useSelector((state) => state.auth);
 

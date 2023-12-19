@@ -4,12 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	Box,
 	Card,
-	useTheme,
 	InputLabel,
 	MenuItem,
 	FormControl,
 	Select,
-	Typography,
 } from "@mui/material";
 import { fetchUserProperties } from "../features/api/dbSlice";
 import PageHeader from "../components/General/PageHeader";

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import FlexBetween from "../Misc/FlexBetween";
 import {
 	Box,
 	Grid,
@@ -7,8 +6,6 @@ import {
 	ToggleButtonGroup,
 	Typography,
 	useTheme,
-	FormControl,
-	InputLabel,
 } from "@mui/material";
 import formsDataStructure from "./Forms/Buy/FormsDataStructure";
 import LeaseOptionForm from "./Forms/Buy/BuyLeaseOptionForm";

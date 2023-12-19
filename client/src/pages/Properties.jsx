@@ -3,11 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import PropertyTable from "../components/MultiProperty/PropertyTable";
 import { fetchUserProperties } from "../features/api/dbSlice";
-import { Dialog, Box, Typography, Stack } from "@mui/material";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
+import { Box, Stack } from "@mui/material";
+
 import PageHeader from "../components/General/PageHeader";
 
 /**

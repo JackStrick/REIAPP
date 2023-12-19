@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import profileImage from "../assets/ProfileImage.jpeg";
 import PageHeader from "../components/General/PageHeader";
-import { useMediaQuery } from "@mui/material";
 import { Container, Grid, Stack } from "@mui/material";
 import AccountProfile from "../components/Account/AccountProfile";
 import AccountDetails from "../components/Account/AccountDetails";
@@ -32,9 +25,6 @@ function Profile() {
 			navigate("/login");
 		}
 	}, [user, navigate]);
-
-	// Check if the screen size is non-mobile
-	const isNonMobile = useMediaQuery("(min-width:1000px)");
 
 	// Render the Profile component
 	return (
