@@ -8,7 +8,6 @@ Application built with (MERN):
 - React.js
 - Node.js
 
-
 APIs utilized:
 - Google Places
 - Google Maps
@@ -16,3 +15,5 @@ APIs utilized:
 Authentication and Authorization:
 - JSON Web Token (JWT)
 - BCRYPT.js
+
+Web services and deployment using Render.com
