@@ -2,7 +2,12 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { themeSettings } from "./theme";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+	BrowserRouter,
+	BrowserRouter as Router,
+	Routes,
+	Route,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,6 +20,7 @@ import Leadfind from "./pages/Leadfind";
 import Dealme from "./pages/Dealme";
 import Properties from "./pages/Properties";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import SingleProperty from "./pages/SingleProperty";
 
 function App() {
