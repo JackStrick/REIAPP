@@ -20,12 +20,19 @@ const AccountDetails = () => {
 	const { user } = useSelector((state) => state.auth);
 
 	// State to manage form values
+	const [values, setValues] = useState({
+		firstName: user.fname,
+		lastName: user.lname,
+		email: user.email,
+		phone: user.phone,
+	});
+
 	const handleChange = useCallback((event) => {
-		setValues((prevState) => ({
-			...prevState,
+		setValues({
+			...values,
 			[event.target.name]: event.target.value,
-		}));
-	}, []);
+		});
+	});
 
 	const handleSubmit = useCallback((event) => {
 		event.preventDefault();
@@ -47,7 +54,7 @@ const AccountDetails = () => {
 									helperText="Please specify the first name"
 									label="First name"
 									name="firstName"
-									onChange={handleChange}
+									disabled
 									required
 									value={user.fname}
 								/>
@@ -57,7 +64,7 @@ const AccountDetails = () => {
 									fullWidth
 									label="Last name"
 									name="lastName"
-									onChange={handleChange}
+									disabled
 									required
 									value={user.lname}
 								/>
@@ -67,7 +74,7 @@ const AccountDetails = () => {
 									fullWidth
 									label="Email Address"
 									name="email"
-									onChange={handleChange}
+									disabled
 									required
 									value={user.email}
 								/>
@@ -77,7 +84,7 @@ const AccountDetails = () => {
 									fullWidth
 									label="Phone Number"
 									name="phone"
-									onChange={handleChange}
+									disabled
 									type="number"
 									value={user.phone}
 								/>
