@@ -100,7 +100,7 @@ function MortgageInfo({ property, analytics }) {
 							{/* First column */}
 							<Grid item xs={6}>
 								<Typography variant="h6" marginTop={1}>
-									Esimated Mortage (Monthly):
+									Esimated Mortage:
 								</Typography>
 								<Typography variant="h6" marginTop={1}>
 									Lender Name:

@@ -38,11 +38,9 @@ function Properties() {
 				.then((response) => {
 					// Update the properties state with the fetched data
 					setProperties(response);
-					console.log("ALL OF THE USER PROPERTIES: ", response);
 				})
 				.catch((error) => {
 					// Handle any errors, e.g., show an error message
-					console.error("Error fetching user properties:", error);
 				});
 		}
 	}, [user, dispatch]);
