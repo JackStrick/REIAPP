@@ -1,29 +1,38 @@
-// Import the Property model, which represents properties in the database
 const { default: mongoose } = require("mongoose");
 const Property = require("../models/propertyModel");
 const Analytics = require("../models/propertyAnalyticsModel");
 const UserProperties = require("../models/userPropertiesModel");
 
-// Define a controller function to get properties
+/**
+ * Get all properties from the database.
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response containing the fetched properties or an error message.
+ * @route POST /api/users/login
+ * @access Public
+ */
 const getProperties = async (req, res) => {
-	//console.log("MADE IT HERE"); // Log a message indicating that the function has been reached
-
 	try {
 		// Attempt to fetch all properties from the database
 		const properties = await Property.find({});
-
-		// If the database query is successful, respond with a status code of 200 (OK)
-		// and send the retrieved properties as a JSON response
 		res.status(200).json(properties);
-		//console.log(properties); // Log the retrieved properties to the console
 	} catch (error) {
-		// If there's an error (e.g., a database query error), catch it here
-		// Respond with a status code of 404 (Not Found) and send an error message as a JSON response
 		res.status(404).json({ message: error.message });
-		console.log("DIDNT WORK"); // Log a message indicating that the operation didn't work
 	}
 };
 
+/**
+ * Get a property by its ID.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with propertyId as a parameter.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response containing the fetched property or an error message.
+ * @route GET /api/properties/:propertyId
+ * @access Public
+ */
 const getPropertyById = async (req, res) => {
 	const propertyId = req.params.propertyId;
 
@@ -31,17 +40,23 @@ const getPropertyById = async (req, res) => {
 		// Attempt to fetch the property with the given ID from the database
 		const property = await Property.findById(propertyId);
 
-		// If the database query is successful, respond with a status code of 200 (OK)
-		// and send the retrieved property as a JSON response
 		res.status(200).json(property);
 		//console.log(property); // Log the retrieved property to the console
 	} catch (error) {
-		// If there's an error (e.g., a database query error), catch it here
-		// Respond with a status code of 404 (Not Found) and send an error message as a JSON response
 		res.status(404).json({ message: error.message });
 	}
 };
 
+/**
+ * Get property analytics by ZPID.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with zpid as a parameter.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response containing the fetched property analytics or an error message.
+ * @route GET /api/property-analytics/:zpid
+ * @access Public
+ */
 const getPropertyAnalytics = async (req, res) => {
 	const zpid = req.params.zpid;
 
@@ -53,6 +68,16 @@ const getPropertyAnalytics = async (req, res) => {
 	}
 };
 
+/**
+ * Get properties associated with a user.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with userId as a parameter.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response containing the fetched user properties or an error message.
+ * @route GET /api/user-properties/:userId
+ * @access Public
+ */
 const getUserProperties = async (req, res) => {
 	const userId = req.params.userId;
 	try {
@@ -77,15 +102,23 @@ const getUserProperties = async (req, res) => {
 		// Fetch property data for the retrieved property IDs from the Property model
 		const properties = await Property.find({ _id: { $in: propertyIds } });
 
-		// Respond with a status code of 200 and send the retrieved properties as a JSON response
 		res.status(200).json(properties);
 	} catch (error) {
-		// Handle any errors and respond with an appropriate status code and error message
 		console.error("Error fetching user properties:", error);
 		res.status(500).json({ message: error.message });
 	}
 };
 
+/**
+ * Check if a user property record already exists.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with userId and propertyId as parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Boolean} - True if a user property record exists, false otherwise.
+ * @route GET /api/is-user-property/:userId/:propertyId
+ * @access Public
+ */
 const isUserProperty = async (req, res) => {
 	const { userId, propertyId } = req.params;
 
@@ -97,7 +130,6 @@ const isUserProperty = async (req, res) => {
 		});
 
 		if (existingUserProperty) {
-			//res.status(400).json({ message: 'User property record already exists' });
 			return true;
 		} else {
 			return false;
@@ -110,6 +142,16 @@ const isUserProperty = async (req, res) => {
 	}
 };
 
+/**
+ * Add a user property record.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with userId and propertyId as parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response indicating success or failure.
+ * @route POST /api/add-user-property/:userId/:propertyId
+ * @access Public
+ */
 const addUserProperty = async (req, res) => {
 	const { userId, propertyId } = req.params;
 
@@ -136,8 +178,18 @@ const addUserProperty = async (req, res) => {
 	}
 };
 
+/**
+ * Remove a user property record.
+ * @function
+ * @async
+ * @param {Object} req - Express request object with userId and propertyId as parameters.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - JSON response indicating success or failure.
+ * @route DELETE /api/remove-user-property/:userId/:propertyId
+ * @access Public
+ */
 const removeUserProperty = async (req, res) => {
-	const { userId, propertyId } = req.params; // Assuming you send the user ID and property ID in the request body
+	const { userId, propertyId } = req.params;
 
 	try {
 		// Find and delete the user property record that matches the provided user and property IDs

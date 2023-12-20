@@ -96,14 +96,7 @@ const logout = asyncHandler(async (req, res) => {
 // @route GET /api/users/me
 // @access Private
 const getUser = asyncHandler(async (req, res) => {
-	//if (req.session.user){
-	//const {_id, name, email } = await User.findById(req.session.user.id)
 	res.status(200).json(req.user);
-	/*} 
-    else {
-        res.status(401)
-        throw new Error('Not Authorized')
-    } */
 });
 
 // Generate JWT
